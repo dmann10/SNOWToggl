@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element audit="true" extends="task" label="Time Cards" max_length="40" name="x_143729_toggl_time_cards" sizeclass="42" type="collection">
+        <element label="User" max_length="32" name="user" read_only="true" reference="sys_user" type="reference"/>
+        <element display="true" label="Work Week" max_length="40" name="work_week" read_only="true" type="glide_date"/>
+    </element>
+</database>

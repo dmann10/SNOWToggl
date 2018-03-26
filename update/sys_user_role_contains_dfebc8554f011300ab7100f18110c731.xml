@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_user_role_contains">
+    <sys_user_role_contains action="INSERT_OR_UPDATE">
+        <contains display_value="x_143729_toggl.time_cards_user" name="x_143729_toggl.time_cards_user">be202ed14f7b0300ab7100f18110c788</contains>
+        <role display_value="x_143729_toggl.toggl_user" name="x_143729_toggl.toggl_user">375b44554f011300ab7100f18110c7f1</role>
+        <sys_class_name>sys_user_role_contains</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-03-23 13:32:18</sys_created_on>
+        <sys_id>dfebc8554f011300ab7100f18110c731</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_143729_toggl.time_cards_user.x_143729_toggl.toggl_user</sys_name>
+        <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
+        <sys_update_name>sys_user_role_contains_dfebc8554f011300ab7100f18110c731</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-03-23 13:32:18</sys_updated_on>
+    </sys_user_role_contains>
+</record_update>

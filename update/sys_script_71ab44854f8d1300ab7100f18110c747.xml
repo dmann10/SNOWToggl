@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>true</action_insert>
+        <action_query>false</action_query>
+        <action_update>true</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_143729_toggl_time_card_entries</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition/>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>validateTimeEntryDate</name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
+
+	var currentWorkWeekDate = current.work_week.work_week;
+	var dateInput = current.date;
+	var workWeek = new GlideDateTime(currentWorkWeekDate);
+	var inputWeek = new GlideDateTime(dateInput);
+	
+	gs.info(workWeek.getWeekOfYearLocalTime());
+	gs.info(inputWeek.getWeekOfYearLocalTime());
+	
+	
+	if(workWeek.getWeekOfYearLocalTime() + 1 != inputWeek.getWeekOfYearLocalTime()) {
+		gs.addErrorMessage('Invalid Input: Date must be within the selected Work Week: ' + currentWorkWeekDate.getDisplayValue());
+		current.setAbortAction(true);
+	}
+	
+
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-03-22 19:01:36</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>71ab44854f8d1300ab7100f18110c747</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>validateTimeEntryDate</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
+        <sys_update_name>sys_script_71ab44854f8d1300ab7100f18110c747</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-03-22 19:13:19</sys_updated_on>
+        <template/>
+        <when>before</when>
+    </sys_script>
+    <sys_translated_text action="delete_multiple" query="documentkey=71ab44854f8d1300ab7100f18110c747"/>
+</record_update>
