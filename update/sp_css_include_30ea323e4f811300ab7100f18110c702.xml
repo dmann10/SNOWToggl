@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_css_include">
+    <sp_css_include action="INSERT_OR_UPDATE">
+        <name>Gotham Fonts</name>
+        <source>local</source>
+        <sp_css display_value="Gotham Fonts">cdbabefa4f811300ab7100f18110c7b4</sp_css>
+        <sys_class_name>sp_css_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-03-28 18:07:37</sys_created_on>
+        <sys_id>30ea323e4f811300ab7100f18110c702</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Gotham Fonts</sys_name>
+        <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
+        <sys_update_name>sp_css_include_30ea323e4f811300ab7100f18110c702</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-03-28 18:07:37</sys_updated_on>
+        <url/>
+    </sp_css_include>
+</record_update>

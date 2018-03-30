@@ -5,13 +5,13 @@
             <element>number</element>
             <position>0</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-20 21:44:39</sys_created_on>
-            <sys_id>df0aa6194f7b0300ab7100f18110c78a</sys_id>
+            <sys_created_on>2018-03-27 13:40:05</sys_created_on>
+            <sys_id>941438e64f011300ab7100f18110c72a</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_143729_toggl_time_cards" sys_domain="global" view="Default view">a9f0e2154f7b0300ab7100f18110c796</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-01-20 21:44:39</sys_updated_on>
+            <sys_updated_on>2018-03-27 13:40:05</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -19,13 +19,13 @@
             <element>work_week</element>
             <position>1</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-20 21:44:39</sys_created_on>
-            <sys_id>530aa6194f7b0300ab7100f18110c78b</sys_id>
+            <sys_created_on>2018-03-27 13:40:05</sys_created_on>
+            <sys_id>181438e64f011300ab7100f18110c72a</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_143729_toggl_time_cards" sys_domain="global" view="Default view">a9f0e2154f7b0300ab7100f18110c796</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-01-20 21:44:39</sys_updated_on>
+            <sys_updated_on>2018-03-27 13:40:05</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -33,13 +33,13 @@
             <element>user</element>
             <position>2</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-20 21:44:39</sys_created_on>
-            <sys_id>d30aa6194f7b0300ab7100f18110c78b</sys_id>
+            <sys_created_on>2018-03-27 13:40:05</sys_created_on>
+            <sys_id>981438e64f011300ab7100f18110c72a</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_143729_toggl_time_cards" sys_domain="global" view="Default view">a9f0e2154f7b0300ab7100f18110c796</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-01-20 21:44:39</sys_updated_on>
+            <sys_updated_on>2018-03-27 13:40:05</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -47,13 +47,13 @@
             <element>.split</element>
             <position>3</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-20 21:44:39</sys_created_on>
-            <sys_id>570aa6194f7b0300ab7100f18110c78b</sys_id>
+            <sys_created_on>2018-03-27 13:40:05</sys_created_on>
+            <sys_id>1c1438e64f011300ab7100f18110c72a</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_143729_toggl_time_cards" sys_domain="global" view="Default view">a9f0e2154f7b0300ab7100f18110c796</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-01-20 21:44:39</sys_updated_on>
+            <sys_updated_on>2018-03-27 13:40:05</sys_updated_on>
             <sys_user/>
             <type>.split</type>
         </sys_ui_element>
@@ -61,55 +61,97 @@
             <element>state</element>
             <position>4</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-20 21:44:39</sys_created_on>
-            <sys_id>d70aa6194f7b0300ab7100f18110c78b</sys_id>
+            <sys_created_on>2018-03-27 13:40:05</sys_created_on>
+            <sys_id>9c1438e64f011300ab7100f18110c72a</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_143729_toggl_time_cards" sys_domain="global" view="Default view">a9f0e2154f7b0300ab7100f18110c796</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-01-20 21:44:39</sys_updated_on>
+            <sys_updated_on>2018-03-27 13:40:05</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>total_hours</element>
+            <position>5</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-03-27 13:40:05</sys_created_on>
+            <sys_id>101438e64f011300ab7100f18110c72b</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_143729_toggl_time_cards" sys_domain="global" view="Default view">a9f0e2154f7b0300ab7100f18110c796</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-03-27 13:40:05</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>billable_hours</element>
+            <position>6</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-03-27 13:40:05</sys_created_on>
+            <sys_id>901438e64f011300ab7100f18110c72b</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_143729_toggl_time_cards" sys_domain="global" view="Default view">a9f0e2154f7b0300ab7100f18110c796</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-03-27 13:40:05</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>amount_billed</element>
+            <position>7</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-03-27 13:40:05</sys_created_on>
+            <sys_id>141438e64f011300ab7100f18110c72b</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_143729_toggl_time_cards" sys_domain="global" view="Default view">a9f0e2154f7b0300ab7100f18110c796</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-03-27 13:40:05</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>.end_split</element>
-            <position>5</position>
+            <position>8</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-20 21:44:39</sys_created_on>
-            <sys_id>5b0aa6194f7b0300ab7100f18110c78b</sys_id>
+            <sys_created_on>2018-03-27 13:40:05</sys_created_on>
+            <sys_id>941438e64f011300ab7100f18110c72b</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_143729_toggl_time_cards" sys_domain="global" view="Default view">a9f0e2154f7b0300ab7100f18110c796</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-01-20 21:44:39</sys_updated_on>
+            <sys_updated_on>2018-03-27 13:40:05</sys_updated_on>
             <sys_user/>
             <type>.end_split</type>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>activity.xml</element>
-            <position>6</position>
+            <position>9</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-20 21:44:39</sys_created_on>
-            <sys_id>db0aa6194f7b0300ab7100f18110c78b</sys_id>
+            <sys_created_on>2018-03-27 13:40:05</sys_created_on>
+            <sys_id>181438e64f011300ab7100f18110c72b</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter display_value="Activities (filtered)">444ea5c6bf310100e628555b3f0739d6</sys_ui_formatter>
             <sys_ui_section caption="NULL" display_value="" name="x_143729_toggl_time_cards" sys_domain="global" view="Default view">a9f0e2154f7b0300ab7100f18110c796</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-01-20 21:44:39</sys_updated_on>
+            <sys_updated_on>2018-03-27 13:40:05</sys_updated_on>
             <sys_user/>
             <type>formatter</type>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>comments_and_work_notes</element>
-            <position>7</position>
+            <position>10</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-20 21:44:39</sys_created_on>
-            <sys_id>df0aa6194f7b0300ab7100f18110c78b</sys_id>
+            <sys_created_on>2018-03-27 13:40:05</sys_created_on>
+            <sys_id>1c1438e64f011300ab7100f18110c72b</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_143729_toggl_time_cards" sys_domain="global" view="Default view">a9f0e2154f7b0300ab7100f18110c796</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-01-20 21:44:39</sys_updated_on>
+            <sys_updated_on>2018-03-27 13:40:05</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>

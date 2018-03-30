@@ -35,11 +35,10 @@
 	var workWeek = new GlideDateTime(currentWorkWeekDate);
 	var inputWeek = new GlideDateTime(dateInput);
 	
-	gs.info(workWeek.getWeekOfYearLocalTime());
-	gs.info(inputWeek.getWeekOfYearLocalTime());
-	
-	
-	if(workWeek.getWeekOfYearLocalTime() + 1 != inputWeek.getWeekOfYearLocalTime()) {
+	gs.info(workWeek > inputWeek);
+	gs.info(workWeek < inputWeek);
+
+	if(workWeek.getWeekOfYearLocalTime() != inputWeek.getWeekOfYearLocalTime()) {
 		gs.addErrorMessage('Invalid Input: Date must be within the selected Work Week: ' + currentWorkWeekDate.getDisplayValue());
 		current.setAbortAction(true);
 	}
@@ -52,7 +51,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>71ab44854f8d1300ab7100f18110c747</sys_id>
-        <sys_mod_count>6</sys_mod_count>
+        <sys_mod_count>9</sys_mod_count>
         <sys_name>validateTimeEntryDate</sys_name>
         <sys_overrides/>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
@@ -60,7 +59,7 @@
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
         <sys_update_name>sys_script_71ab44854f8d1300ab7100f18110c747</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-03-22 19:13:19</sys_updated_on>
+        <sys_updated_on>2018-03-27 18:37:30</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>

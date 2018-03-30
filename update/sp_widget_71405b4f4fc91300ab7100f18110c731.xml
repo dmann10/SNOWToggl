@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function() {
+  /* widget controller */
+  var c = this;
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.main {
+	text-align: center;
+}
+
+.week-info {
+	font-size: 18px;
+  color: white;
+  font-weight: bold;
+}
+
+.week-beginning {
+	margin: 0;
+}
+
+.circle {
+	border-radius: 100%;
+}
+
+.outer-circle {
+	height: 250px;
+  width: 250px;
+  background-color: #53668d;
+  padding: 30px;
+  margin: 0 auto;
+}
+
+.inner-circle {
+	height: 190px;
+  width: 190px;
+  margin: 0 auto;
+  background-color: #ecedee;
+  color: #53668d;
+  text-align: center;
+  padding: 50px;
+}
+
+.hours {
+  font-size: 20px;
+  margin: 0;
+  font-weight: bold;
+}
+
+.digits {
+	font-size: 36px;
+}
+
+.menu-header {
+	margin-top: 15px;
+  text-align: left;
+}
+
+.menu-heading {
+	color: white;
+  font-weight: bold;
+  margin-top: 5px;
+  display: inline-block;
+}
+
+#stopwatch {
+	height: 30px;
+  width: 30px;
+  margin-right: 5px;
+  vertical-align: top;
+}
+
+.menu {
+	text-align: left;
+  padding-left: 25%;
+  margin-top: 10px;
+}
+
+.menu-item {
+	color: white;
+  font-weight: bold;
+  cursor: pointer;
+  display: block;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>toggl_side_menu</id>
+        <internal>false</internal>
+        <link/>
+        <name>Toggl Side Menu</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	
+
+	// Get most current time card for logged in user
+	var timeCard = new GlideRecord('x_143729_toggl_time_cards');
+	timeCard.addQuery('user', gs.getUserID());
+	timeCard.orderBy('sys_created_on');
+	timeCard.query();
+	timeCard.next();
+	
+	// Get the month and day for this time card's work week
+	var gdt = new GlideDateTime(timeCard.work_week);
+	var month = gdt.getMonthLocalTime();
+	data.monthOfYear = "";
+	data.dayOfMonth = gdt.getDayOfMonthLocalTime();
+	data.totalHours = timeCard.total_hours.toString();
+	
+	switch(month) {
+	case 1:
+		data.monthOfYear = "January";
+		break;
+	case 2:
+		data.monthOfYear = "February";
+		break;
+	case 3:
+		data.monthOfYear = "March";
+		break;
+	case 4:
+		data.monthOfYear = "April";
+		break;
+	case 5:
+		data.monthOfYear = "May";
+		break;
+	case 6:
+		data.monthOfYear = "June";
+		break;
+	case 7:
+		data.monthOfYear = "July";
+		break;
+	case 8:
+		data.monthOfYear = "August";
+		break;
+	case 9:
+		data.monthOfYear = "September";
+		break;
+	case 10:
+		data.monthOfYear = "October";
+		break;
+	case 11:
+		data.monthOfYear = "November";
+		break;
+	case 12:
+		data.monthOfYear = "December";
+		break;
+}
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-03-29 14:19:32</sys_created_on>
+        <sys_id>71405b4f4fc91300ab7100f18110c731</sys_id>
+        <sys_mod_count>90</sys_mod_count>
+        <sys_name>Toggl Side Menu</sys_name>
+        <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
+        <sys_update_name>sp_widget_71405b4f4fc91300ab7100f18110c731</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-03-29 20:44:29</sys_updated_on>
+        <template><![CDATA[<div class="main">
+  <p class="week-info week-beginning">WEEK BEGINNING</p>
+  <p class="week-info week-date">{{data.monthOfYear}}, {{data.dayOfMonth}}</p>
+
+	<div class="circle outer-circle">
+    <div class="circle inner-circle">
+      <p class="hours digits">{{data.totalHours}}</p>
+      <p class="hours">HOURS</p>
+    </div>
+  </div>
+  
+  <div class="menu-header">
+     <img id="stopwatch" src="stopwatch_icon.png"/><h3 class="menu-heading">TRACK</h3>
+  </div>
+  <div class="menu">
+    <a class="menu-item" href="#">MY TIME CARD</a>
+    <a class="menu-item" href="#">REPORTS</a>
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

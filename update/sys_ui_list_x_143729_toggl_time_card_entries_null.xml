@@ -4,122 +4,122 @@
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
             <element>work_week</element>
-            <list_id display_value="x_143729_toggl_time_card_entries" element="NULL" name="x_143729_toggl_time_card_entries" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">b24123e44f051300ab7100f18110c718</list_id>
+            <list_id display_value="x_143729_toggl_time_card_entries" element="NULL" name="x_143729_toggl_time_card_entries" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">71f5b8924fc11300ab7100f18110c72a</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>0</position>
             <sum>false</sum>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-03-21 21:09:04</sys_created_on>
-            <sys_id>3a4123e44f051300ab7100f18110c718</sys_id>
+            <sys_created_on>2018-03-26 19:09:54</sys_created_on>
+            <sys_id>bdf5b8924fc11300ab7100f18110c72a</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-03-21 21:09:04</sys_updated_on>
+            <sys_updated_on>2018-03-26 19:09:54</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
             <element>project</element>
-            <list_id display_value="x_143729_toggl_time_card_entries" element="NULL" name="x_143729_toggl_time_card_entries" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">b24123e44f051300ab7100f18110c718</list_id>
+            <list_id display_value="x_143729_toggl_time_card_entries" element="NULL" name="x_143729_toggl_time_card_entries" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">71f5b8924fc11300ab7100f18110c72a</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>1</position>
             <sum>false</sum>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-03-21 21:09:04</sys_created_on>
-            <sys_id>ba4123e44f051300ab7100f18110c718</sys_id>
+            <sys_created_on>2018-03-26 19:09:54</sys_created_on>
+            <sys_id>75f5b8924fc11300ab7100f18110c72b</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-03-21 21:09:04</sys_updated_on>
+            <sys_updated_on>2018-03-26 19:09:54</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
             <element>date</element>
-            <list_id display_value="x_143729_toggl_time_card_entries" element="NULL" name="x_143729_toggl_time_card_entries" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">b24123e44f051300ab7100f18110c718</list_id>
+            <list_id display_value="x_143729_toggl_time_card_entries" element="NULL" name="x_143729_toggl_time_card_entries" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">71f5b8924fc11300ab7100f18110c72a</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>2</position>
             <sum>false</sum>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-03-21 21:09:04</sys_created_on>
-            <sys_id>3e4123e44f051300ab7100f18110c718</sys_id>
-            <sys_mod_count>0</sys_mod_count>
+            <sys_created_on>2018-03-26 19:09:54</sys_created_on>
+            <sys_id>f5f5b8924fc11300ab7100f18110c72b</sys_id>
+            <sys_mod_count>4</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-03-21 21:09:04</sys_updated_on>
+            <sys_updated_on>2018-03-26 19:14:07</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
             <element>description</element>
-            <list_id display_value="x_143729_toggl_time_card_entries" element="NULL" name="x_143729_toggl_time_card_entries" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">b24123e44f051300ab7100f18110c718</list_id>
+            <list_id display_value="x_143729_toggl_time_card_entries" element="NULL" name="x_143729_toggl_time_card_entries" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">71f5b8924fc11300ab7100f18110c72a</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>3</position>
             <sum>false</sum>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-03-21 21:09:04</sys_created_on>
-            <sys_id>be4123e44f051300ab7100f18110c718</sys_id>
-            <sys_mod_count>0</sys_mod_count>
+            <sys_created_on>2018-03-26 19:09:54</sys_created_on>
+            <sys_id>79f5b8924fc11300ab7100f18110c72b</sys_id>
+            <sys_mod_count>4</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-03-21 21:09:04</sys_updated_on>
+            <sys_updated_on>2018-03-26 19:14:07</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
             <element>start_time</element>
-            <list_id display_value="x_143729_toggl_time_card_entries" element="NULL" name="x_143729_toggl_time_card_entries" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">b24123e44f051300ab7100f18110c718</list_id>
+            <list_id display_value="x_143729_toggl_time_card_entries" element="NULL" name="x_143729_toggl_time_card_entries" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">71f5b8924fc11300ab7100f18110c72a</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>4</position>
             <sum>false</sum>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-03-21 21:09:04</sys_created_on>
-            <sys_id>324123e44f051300ab7100f18110c719</sys_id>
+            <sys_created_on>2018-03-26 19:09:54</sys_created_on>
+            <sys_id>f9f5b8924fc11300ab7100f18110c72b</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-03-21 21:09:04</sys_updated_on>
+            <sys_updated_on>2018-03-26 19:09:54</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
             <element>end_time</element>
-            <list_id display_value="x_143729_toggl_time_card_entries" element="NULL" name="x_143729_toggl_time_card_entries" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">b24123e44f051300ab7100f18110c718</list_id>
+            <list_id display_value="x_143729_toggl_time_card_entries" element="NULL" name="x_143729_toggl_time_card_entries" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">71f5b8924fc11300ab7100f18110c72a</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>5</position>
             <sum>false</sum>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-03-21 21:09:04</sys_created_on>
-            <sys_id>b24123e44f051300ab7100f18110c719</sys_id>
+            <sys_created_on>2018-03-26 19:09:54</sys_created_on>
+            <sys_id>7df5b8924fc11300ab7100f18110c72b</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-03-21 21:09:04</sys_updated_on>
+            <sys_updated_on>2018-03-26 19:09:54</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
             <element>user</element>
-            <list_id display_value="x_143729_toggl_time_card_entries" element="NULL" name="x_143729_toggl_time_card_entries" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">b24123e44f051300ab7100f18110c718</list_id>
+            <list_id display_value="x_143729_toggl_time_card_entries" element="NULL" name="x_143729_toggl_time_card_entries" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">71f5b8924fc11300ab7100f18110c72a</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>6</position>
             <sum>false</sum>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-03-21 21:09:04</sys_created_on>
-            <sys_id>364123e44f051300ab7100f18110c719</sys_id>
+            <sys_created_on>2018-03-26 19:09:54</sys_created_on>
+            <sys_id>fdf5b8924fc11300ab7100f18110c72b</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-03-21 21:09:04</sys_updated_on>
+            <sys_updated_on>2018-03-26 19:09:54</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
             <element>hours</element>
-            <list_id display_value="x_143729_toggl_time_card_entries" element="NULL" name="x_143729_toggl_time_card_entries" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">b24123e44f051300ab7100f18110c718</list_id>
+            <list_id display_value="x_143729_toggl_time_card_entries" element="NULL" name="x_143729_toggl_time_card_entries" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">71f5b8924fc11300ab7100f18110c72a</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>7</position>
             <sum>false</sum>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-03-21 21:09:04</sys_created_on>
-            <sys_id>b64123e44f051300ab7100f18110c719</sys_id>
-            <sys_mod_count>0</sys_mod_count>
+            <sys_created_on>2018-03-26 19:09:54</sys_created_on>
+            <sys_id>71f5b8924fc11300ab7100f18110c72c</sys_id>
+            <sys_mod_count>4</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-03-21 21:09:04</sys_updated_on>
+            <sys_updated_on>2018-03-26 19:14:07</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
@@ -133,10 +133,10 @@
             <sum>false</sum>
             <sys_class_name>sys_ui_list</sys_class_name>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-03-21 21:09:04</sys_created_on>
+            <sys_created_on>2018-03-26 19:09:54</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
-            <sys_id>b24123e44f051300ab7100f18110c718</sys_id>
+            <sys_id>71f5b8924fc11300ab7100f18110c72a</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_name>x_143729_toggl_time_card_entries</sys_name>
             <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
@@ -144,7 +144,7 @@
             <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
             <sys_update_name>sys_ui_list_x_143729_toggl_time_card_entries_null</sys_update_name>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-03-21 21:09:04</sys_updated_on>
+            <sys_updated_on>2018-03-26 19:09:54</sys_updated_on>
             <sys_user/>
             <view display_value="Default view" name="NULL">Default view</view>
             <view_name/>

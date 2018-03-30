@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_css">
+    <sp_css action="INSERT_OR_UPDATE">
+        <css>@font-face {&#13;
+    font-family: 'GothamRoundedBold';&#13;
+    src: url('/sys_attachment.do?sys_id=7a853a3a4f811300ab7100f18110c736');&#13;
+    src: url('/sys_attachment.do?sys_id=7a853a3a4f811300ab7100f18110c736')  format('embedded-opentype'),&#13;
+         url('/sys_attachment.do?sys_id=13953ef64f811300ab7100f18110c7d1')  format('embedded-opentype'),&#13;
+         url('/sys_attachment.do?sys_id=5426ba3a4f811300ab7100f18110c738') format('truetype');&#13;
+    font-weight: normal;&#13;
+    font-style: normal;&#13;
+}&#13;
+&#13;
+@font-face {&#13;
+    font-family: 'GothamRoundedBook';&#13;
+    src: url('/sys_attachment.do?sys_id=d63c363e4f811300ab7100f18110c73b');&#13;
+    src: url('/sys_attachment.do?sys_id=d63c363e4f811300ab7100f18110c73b') format('embedded-opentype'),&#13;
+         url('/sys_attachment.do?sys_id=333c763e4f811300ab7100f18110c7db') format('embedded-opentype'),&#13;
+         url('/sys_attachment.do?sys_id=de4c7a3e4f811300ab7100f18110c767') format('truetype');&#13;
+    font-weight: normal;&#13;
+    font-style: normal;&#13;
+}&#13;
+&#13;
+@font-face {&#13;
+    font-family: 'GothamRoundedMedium';&#13;
+    src: url('/sys_attachment.do?sys_id=b9b5ba3a4f811300ab7100f18110c7a5');&#13;
+    src: url('/sys_attachment.do?sys_id=b9b5ba3a4f811300ab7100f18110c7a5') format('embedded-opentype'),&#13;
+         url('/sys_attachment.do?sys_id=03b5b23a4f811300ab7100f18110c7dc') format('embedded-opentype'),&#13;
+         url('/sys_attachement.do?sys_id=f416ba3a4f811300ab7100f18110c7e5') format('truetype');&#13;
+     font-weight: normal;&#13;
+     font-style: normal;&#13;
+}&#13;
+&#13;
+@font-face {&#13;
+    font-family: 'GothamRoundedLight';&#13;
+    src: url('/sys_attachment.do?sys_id=072cf63e4f811300ab7100f18110c755');&#13;
+    src: url('/sys_attachment.do?sys_id=072cf63e4f811300ab7100f18110c755') format('embedded-opentype'),&#13;
+         url('/sys_attachment.do?sys_id=4b1c7a3e4f811300ab7100f18110c7b4') format('embedded-opentype'),&#13;
+         url('/sys_attachment.do?sys_id=0d1c7a3e4f811300ab7100f18110c710') format('truetype');&#13;
+    font-weight: normal;&#13;
+  	font-style: normal;&#13;
+     &#13;
+}&#13;
+&#13;
+* {&#13;
+  font-family: "GothamRoundedBook";&#13;
+}</css>
+        <name>Gotham Fonts</name>
+        <sys_class_name>sp_css</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-03-28 18:07:36</sys_created_on>
+        <sys_id>cdbabefa4f811300ab7100f18110c7b4</sys_id>
+        <sys_mod_count>19</sys_mod_count>
+        <sys_name>Gotham Fonts</sys_name>
+        <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
+        <sys_update_name>sp_css_cdbabefa4f811300ab7100f18110c7b4</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-03-29 18:16:51</sys_updated_on>
+    </sp_css>
+</record_update>
