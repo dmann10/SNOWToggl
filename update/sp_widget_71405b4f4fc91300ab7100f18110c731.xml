@@ -72,6 +72,10 @@
 }
 
 .menu {
+	padding: 0px 45px;
+}
+
+.menu-list {
 	text-align: left;
   padding-left: 25%;
   margin-top: 10px;
@@ -161,14 +165,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-03-29 14:19:32</sys_created_on>
         <sys_id>71405b4f4fc91300ab7100f18110c731</sys_id>
-        <sys_mod_count>90</sys_mod_count>
+        <sys_mod_count>92</sys_mod_count>
         <sys_name>Toggl Side Menu</sys_name>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
         <sys_policy/>
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
         <sys_update_name>sp_widget_71405b4f4fc91300ab7100f18110c731</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-03-29 20:44:29</sys_updated_on>
+        <sys_updated_on>2018-03-30 18:08:10</sys_updated_on>
         <template><![CDATA[<div class="main">
   <p class="week-info week-beginning">WEEK BEGINNING</p>
   <p class="week-info week-date">{{data.monthOfYear}}, {{data.dayOfMonth}}</p>
@@ -180,12 +184,14 @@
     </div>
   </div>
   
-  <div class="menu-header">
-     <img id="stopwatch" src="stopwatch_icon.png"/><h3 class="menu-heading">TRACK</h3>
-  </div>
   <div class="menu">
-    <a class="menu-item" href="#">MY TIME CARD</a>
-    <a class="menu-item" href="#">REPORTS</a>
+    <div class="menu-header">
+       <img id="stopwatch" src="stopwatch_icon.png"/><h3 class="menu-heading">TRACK</h3>
+    </div>
+    <div class="menu-list">
+      <a class="menu-item" href="#">MY TIME CARD</a>
+      <a class="menu-item" href="#">REPORTS</a>
+    </div>
   </div>
 </div>]]></template>
     </sp_widget>
