@@ -56,6 +56,7 @@ $text-muted: #979797;
     <sys_translated_text action="delete_multiple" query="documentkey=7cb3cdda4fc11300ab7100f18110c78d"/>
     <sys_attachment action="INSERT_OR_UPDATE">
         <average_image_color>#ffffff</average_image_color>
+        <chunk_size_bytes/>
         <compressed>true</compressed>
         <content_type>image/png</content_type>
         <encryption_context/>
@@ -93,6 +94,7 @@ $text-muted: #979797;
     </sys_attachment_doc>
     <sys_attachment action="INSERT_OR_UPDATE">
         <average_image_color>#ffffff</average_image_color>
+        <chunk_size_bytes/>
         <compressed>true</compressed>
         <content_type>image/png</content_type>
         <encryption_context/>

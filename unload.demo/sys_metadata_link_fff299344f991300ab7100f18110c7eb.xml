@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>unload.demo</directory>
+        <documentkey>c79ab4114f811300ab7100f18110c7c9</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_user_group">
+    <sys_user_group action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <cost_center/>
+        <default_assignee/>
+        <description>Group of All Team Leaders/Time Card Approvers</description>
+        <email/>
+        <exclude_manager>false</exclude_manager>
+        <include_members>false</include_members>
+        <manager/>
+        <name>Team Leaders</name>
+        <parent/>
+        <roles/>
+        <source/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-03-23 16:56:53</sys_created_on>
+        <sys_id>c79ab4114f811300ab7100f18110c7c9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-03-23 16:56:53</sys_updated_on>
+        <type/>
+        <vendors/>
+    </sys_user_group>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-04-03 15:41:33</sys_created_on>
+        <sys_id>fff299344f991300ab7100f18110c7eb</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Team Leaders</sys_name>
+        <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
+        <sys_update_name>sys_metadata_link_fff299344f991300ab7100f18110c7eb</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-04-03 15:41:33</sys_updated_on>
+        <tablename>sys_user_group</tablename>
+    </sys_metadata_link>
+</record_update>

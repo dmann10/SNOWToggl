@@ -9,6 +9,7 @@
         <grantable>true</grantable>
         <includes_roles/>
         <name>x_143729_toggl.time_cards_user</name>
+        <scoped_admin>false</scoped_admin>
         <suffix>time_cards_user</suffix>
         <sys_class_name>sys_user_role</sys_class_name>
         <sys_created_by>admin</sys_created_by>

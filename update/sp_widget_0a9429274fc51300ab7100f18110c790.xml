@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
         <client_script><![CDATA[function() {  /* widget controller */  var c = this;}]]></client_script>
         <controller_as>c</controller_as>
         <css>.main {
 	max-height: 80vh;
+  min-height: 80vh;
   overflow: auto;
+  margin: 0 auto;
 }
 
 .body {
-  width: 90%;
-	margin: 0 auto;
+  width: 100%;
+	
 }
 
 .heading {
@@ -30,9 +33,57 @@
   color: #53668d;
   font-weight: bold;
   letter-spacing: .5px;
-  padding: 25px 15px;
+  padding: 25px 15px 15px 15px;
 }
-</css>
+
+.day-entry {
+	margin-bottom: 10px;
+}
+
+.entry-description-div {
+  display: inline-block;
+  width: 75%;
+  max-width: 75%;
+  overflow: hidden;
+  font-size: 14px;
+}
+
+.entry-description {
+	margin: 0;
+}
+
+.entry-time, .entry-project {
+	color: #6e97c8;
+  display: inline-block;
+  margin: 0;
+  font-size: 13px;
+}
+
+.entry-time {
+	letter-spacing: 0px;
+  width: 150px;
+}
+
+.entry-project {
+	margin-left: 20px;
+}
+
+.entry-hours-div {
+  display: inline-block;
+  float: right;
+  margin-top: 10px;
+}
+
+i {
+	position: relative;
+  bottom: 12px;
+}
+
+.entry-hours-div &gt; p {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+}</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -48,6 +99,7 @@
         <roles/>
         <script><![CDATA[(function() {
   
+	// Get all of this users time entries for the week 
 	var gr_timeEntry = new GlideRecord('x_143729_toggl_time_card_entries');
   gr_timeEntry.addEncodedQuery('userDYNAMIC90d1921e5f510100a9ad2572f2b477fe^work_week.work_weekONThis week@javascript:gs.beginningOfThisWeek()@javascript:gs.endOfThisWeek()');
 	gr_timeEntry.orderByDesc('date');
@@ -55,43 +107,51 @@
 	
 	data.timeEntries = [];
 	
+	// For each day of the week with time entries, build a list of entries for that day
 	var currentDate = '';
 	while(gr_timeEntry.next()) {
-		if(currentDate != gr_timeEntry.date.toString()) {
+		if(currentDate != gr_timeEntry.date) {
 			currentDate = gr_timeEntry.date.toString();
 			data.timeEntries.push(buildEntriesByDay(gr_timeEntry));
 		}
 	}
 	
+	// Accepts a timeEntry glide record as a parameter and builds time entries for that objects date
+	// Returns an object containing a day of the week and an array of timeEntry objects
 	function buildEntriesByDay(timeEntry) {
-		var gdt = new GlideDateTime(timeEntry.date);
-		var dayNum = gdt.getDayOfMonthLocalTime() + 1;
+		// Builds the string format of the date 
+		// ex.) Tuesday, March 2
+		var gdt = new GlideDateTime(timeEntry.date + ' 12:00:00');
+		var dayNum = gdt.getDayOfMonthLocalTime();
 		var dayString = getDayOfWeek(gdt.getDayOfWeekLocalTime());
 		var month = getMonthOfYear(gdt.getMonthLocalTime());
-
+		
+		// Time entry object to be returned
 		var timeEntryObj = {
 			day: dayString + ', ' + month + ' ' + dayNum,
 			entry: []
 		};
-			
+		
+		// Glide Record of time entries for the given date in descending order
 		var gr_entries = new GlideRecord('x_143729_toggl_time_card_entries');
 		gr_entries.addQuery('user', gs.getUserID());
 		gr_entries.addQuery('work_week.work_week', timeEntry.work_week.work_week);
 		gr_entries.addQuery('date', timeEntry.date);
-		gr_entries.orderBy('start_time');
+		gr_entries.orderByDesc('start_time');
 		gr_entries.query();
 		
+		// For each glide record build an entry object and push it into the timeEntryObj.entry array
 		while(gr_entries.next()) {
 			var entryObj = {};
 			$sp.getRecordDisplayValues(entryObj, gr_entries, 
 				'project,date,start_time,end_time,billable,hours,description');
 			timeEntryObj.entry.push(entryObj);
 		}
-		return timeEntryObj;
 		
+		return timeEntryObj;
 	}
 	
-	// Helper functions to build date in string form
+	// Helper function which returns a day as a string
 	function getDayOfWeek(day) {
 		switch(day) {
 			case 1:
@@ -111,6 +171,7 @@
 		}
 	}
 	
+	// Helper function which returns a month as a string
 	function getMonthOfYear(month) {
 		switch(month) {
 			case 1:
@@ -147,14 +208,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-03-30 19:46:02</sys_created_on>
         <sys_id>0a9429274fc51300ab7100f18110c790</sys_id>
-        <sys_mod_count>44</sys_mod_count>
+        <sys_mod_count>120</sys_mod_count>
         <sys_name>Toggl Time Entry List</sys_name>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
         <sys_policy/>
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
         <sys_update_name>sp_widget_0a9429274fc51300ab7100f18110c790</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-04-03 00:05:04</sys_updated_on>
+        <sys_updated_on>2018-04-03 15:19:29</sys_updated_on>
         <template><![CDATA[<div class="main">
   <div class="body" ng-repeat="timeEntry in data.timeEntries">
     <div class="heading">
@@ -162,12 +223,17 @@
     </div>
     <div class="day-entries-list">
       <div class="day-entry" ng-repeat="entry in timeEntry.entry">
-        {{entry.description}}<br>
-        {{entry.start_time}} - {{entry.end_time}}
-        {{entry.project}}<br>
-        {{entry.hours}} hrs
+        <div class="entry-description-div">
+          <p class="entry-description">{{entry.description}}</p>
+          <p class="entry-time">{{entry.start_time}} - {{entry.end_time}}</p>
+          <p class="entry-project">{{entry.project}}</p>
+        </div>
+        <i ng-show="{{entry.billable}}" class="fa fa-dollar fa-lg"></i>
+       	<div class="entry-hours-div">
+          <p>{{entry.hours}} hrs</p>
+        </div>
+        
       </div>
-      <br>
     </div>
   </div>
 </div>]]></template>

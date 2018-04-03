@@ -4,6 +4,7 @@
         <access>package_private</access>
         <active>true</active>
         <api_name>x_143729_toggl.TimeEntries</api_name>
+        <caller_access/>
         <client_callable>true</client_callable>
         <description>Script Include Logic for the Time Entry Table</description>
         <name>TimeEntries</name>

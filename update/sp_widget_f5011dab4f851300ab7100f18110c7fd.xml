@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
-        <client_script><![CDATA[function() {  /* widget controller */  var c = this;}]]></client_script>
+        <category>custom</category>
+        <client_script><![CDATA[function() {
+  /* widget controller */
+  var c = this;
+	
+	c.toggleBillable = false;
+}]]></client_script>
         <controller_as>c</controller_as>
         <css>.body {
-  width: 90%;
+  width: 100%;
 	margin: 0 auto;
   min-height: 80vh;
   background-color: #ecedee;
@@ -53,7 +59,13 @@ input::placeholder {
 	cursor: pointer;
   padding: 5px;
   float: right;
-  margin-right: 30px;
+  margin-right: 20px;
+  opacity: 0.5;
+}
+
+.billable-active {
+	// color: #38c430;
+  opacity: 1;
 }
 
 /* IE11 hide native button */
@@ -73,7 +85,7 @@ select::-ms-expand {
   pointer-events: none;
   position: relative;
   float: right;
-  right: 28px;
+  right: 20px;
   bottom: 34px;
 }
 
@@ -92,8 +104,6 @@ select::-ms-expand {
 	margin-top: 15px;
   cursor: pointer;
 }
-
-
 </css>
         <data_table>sp_instance</data_table>
         <demo_data/>
@@ -129,14 +139,14 @@ select::-ms-expand {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-03-30 18:20:32</sys_created_on>
         <sys_id>f5011dab4f851300ab7100f18110c7fd</sys_id>
-        <sys_mod_count>122</sys_mod_count>
+        <sys_mod_count>140</sys_mod_count>
         <sys_name>Toggl Time Entry Form</sys_name>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
         <sys_policy/>
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
         <sys_update_name>sp_widget_f5011dab4f851300ab7100f18110c7fd</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-04-02 17:41:02</sys_updated_on>
+        <sys_updated_on>2018-04-03 15:15:07</sys_updated_on>
         <template><![CDATA[<div class="body">
 	<div class="heading">
     <p class="header">TIME TRACKER</p>
@@ -145,7 +155,7 @@ select::-ms-expand {
     <p>What are you working on?</p>
     <div class="form-group">
       <input type="text" class="task-input" placeholder="Enter your task details here">
-      <span class="billable-btn"><i class="fa fa-dollar fa-lg"></i></span>
+      <span ng-click="c.toggleBillable = !c.toggleBillable" ng-class="{'billable-active': c.toggleBillable}" class="billable-btn"><i class="fa fa-dollar fa-lg"></i></span>
     </div>
     <div class="select-div">
       <select>
