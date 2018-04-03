@@ -30,17 +30,71 @@
   height: 100%;
 }
 
-.task-description {
+.form-group {
+	border-bottom: 1px solid black;
+}
+
+.task-input {
   background: none;
   border-top-style: hidden;
   border-left-style: hidden;
   border-right-style: hidden;
-  border-bottom: 1px solid black;
   color: #7191c9;
   padding: 5px 0px;
   margin-left: 5px;
   width: 85%;
-}</css>
+}
+
+input::placeholder {
+	color: #7191c9;
+}
+
+.billable-btn {
+	cursor: pointer;
+  padding: 5px;
+  float: right;
+  margin-right: 30px;
+}
+
+/* IE11 hide native button */
+select::-ms-expand {
+	display: none;
+}
+
+.select-div {
+	position: relative;
+}
+
+.select-div:after {
+  content: '\f078';
+  font-family: FontAwesome;
+  font-size: 22px;
+  color: white;
+  pointer-events: none;
+  position: relative;
+  float: right;
+  right: 28px;
+  bottom: 34px;
+}
+
+.select-div select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+	width: 100%;
+  height: 35px;
+  padding: 5px;
+  background: none;
+  background-color: #6e97c8;
+  border: none;
+  color: white;
+	margin-top: 15px;
+  cursor: pointer;
+}
+
+
+</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -54,28 +108,50 @@
         <option_schema/>
         <public>false</public>
         <roles/>
-        <script><![CDATA[(function() {  /* populate the 'data' object */  /* e.g., data.table = $sp.getValue('table'); */})();]]></script>
+        <script><![CDATA[(function() {
+  
+	var gr_project = new GlideRecord('x_143729_toggl_projects');
+	gr_project.query();
+	
+	data.projects = [];
+	while(gr_project.next()) {
+		var project = {}
+		
+		$sp.getRecordDisplayValues(project, gr_project, 
+			'name,billable,billable_rate_per_hour,sys_id');
+		
+		data.projects.push(project);
+	}
+
+})();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-03-30 18:20:32</sys_created_on>
         <sys_id>f5011dab4f851300ab7100f18110c7fd</sys_id>
-        <sys_mod_count>52</sys_mod_count>
+        <sys_mod_count>122</sys_mod_count>
         <sys_name>Toggl Time Entry Form</sys_name>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
         <sys_policy/>
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
         <sys_update_name>sp_widget_f5011dab4f851300ab7100f18110c7fd</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-03-30 19:59:24</sys_updated_on>
+        <sys_updated_on>2018-04-02 17:41:02</sys_updated_on>
         <template><![CDATA[<div class="body">
 	<div class="heading">
     <p class="header">TIME TRACKER</p>
   </div>
   <div class="main">
     <p>What are you working on?</p>
-    <input type="text" class="task-description" value="Enter your task details here">
-    
+    <div class="form-group">
+      <input type="text" class="task-input" placeholder="Enter your task details here">
+      <span class="billable-btn"><i class="fa fa-dollar fa-lg"></i></span>
+    </div>
+    <div class="select-div">
+      <select>
+        <option ng-repeat="project in data.projects" value="{{project.sys_id}}" >{{project.name}}</option>
+      </select>
+		</div>
   </div>
 </div>]]></template>
     </sp_widget>

@@ -3,11 +3,14 @@
     <sp_widget action="INSERT_OR_UPDATE">
         <client_script><![CDATA[function() {  /* widget controller */  var c = this;}]]></client_script>
         <controller_as>c</controller_as>
-        <css>.body {
+        <css>.main {
+	max-height: 80vh;
+  overflow: auto;
+}
+
+.body {
   width: 90%;
 	margin: 0 auto;
-  max-height: 80vh;
-  overflow: auto;
 }
 
 .heading {
@@ -28,7 +31,6 @@
   font-weight: bold;
   letter-spacing: .5px;
   padding: 25px 15px;
-  height: 500px;
 }
 </css>
         <data_table>sp_instance</data_table>
@@ -44,32 +46,129 @@
         <option_schema/>
         <public>false</public>
         <roles/>
-        <script><![CDATA[(function() {  /* populate the 'data' object */  /* e.g., data.table = $sp.getValue('table'); */})();]]></script>
+        <script><![CDATA[(function() {
+  
+	var gr_timeEntry = new GlideRecord('x_143729_toggl_time_card_entries');
+  gr_timeEntry.addEncodedQuery('userDYNAMIC90d1921e5f510100a9ad2572f2b477fe^work_week.work_weekONThis week@javascript:gs.beginningOfThisWeek()@javascript:gs.endOfThisWeek()');
+	gr_timeEntry.orderByDesc('date');
+	gr_timeEntry.query();
+	
+	data.timeEntries = [];
+	
+	var currentDate = '';
+	while(gr_timeEntry.next()) {
+		if(currentDate != gr_timeEntry.date.toString()) {
+			currentDate = gr_timeEntry.date.toString();
+			data.timeEntries.push(buildEntriesByDay(gr_timeEntry));
+		}
+	}
+	
+	function buildEntriesByDay(timeEntry) {
+		var gdt = new GlideDateTime(timeEntry.date);
+		var dayNum = gdt.getDayOfMonthLocalTime() + 1;
+		var dayString = getDayOfWeek(gdt.getDayOfWeekLocalTime());
+		var month = getMonthOfYear(gdt.getMonthLocalTime());
+
+		var timeEntryObj = {
+			day: dayString + ', ' + month + ' ' + dayNum,
+			entry: []
+		};
+			
+		var gr_entries = new GlideRecord('x_143729_toggl_time_card_entries');
+		gr_entries.addQuery('user', gs.getUserID());
+		gr_entries.addQuery('work_week.work_week', timeEntry.work_week.work_week);
+		gr_entries.addQuery('date', timeEntry.date);
+		gr_entries.orderBy('start_time');
+		gr_entries.query();
+		
+		while(gr_entries.next()) {
+			var entryObj = {};
+			$sp.getRecordDisplayValues(entryObj, gr_entries, 
+				'project,date,start_time,end_time,billable,hours,description');
+			timeEntryObj.entry.push(entryObj);
+		}
+		return timeEntryObj;
+		
+	}
+	
+	// Helper functions to build date in string form
+	function getDayOfWeek(day) {
+		switch(day) {
+			case 1:
+				return "Monday";
+			case 2:
+				return "Tuesday";
+			case 3:
+				return "Wednesday";
+			case 4:
+				return "Thursday";
+			case 5:
+				return "Friday";
+			case 6:
+				return "Saturday";
+			case 7:
+				return "Sunday";
+		}
+	}
+	
+	function getMonthOfYear(month) {
+		switch(month) {
+			case 1:
+				return "January";
+			case 2:
+				return "February";
+			case 3:
+				return "March";
+			case 4:
+				return "April";
+			case 5:
+				return "May";
+			case 6:
+				return "June";
+			case 7:
+				return "July";
+			case 8:
+				return "August";
+			case 9:
+				return "September";
+			case 10:
+				return "October";
+			case 11:
+				return "November";
+			case 12:
+				return "December";
+		}
+	}
+
+})();
+]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-03-30 19:46:02</sys_created_on>
         <sys_id>0a9429274fc51300ab7100f18110c790</sys_id>
-        <sys_mod_count>12</sys_mod_count>
+        <sys_mod_count>44</sys_mod_count>
         <sys_name>Toggl Time Entry List</sys_name>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
         <sys_policy/>
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
         <sys_update_name>sp_widget_0a9429274fc51300ab7100f18110c790</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-03-30 19:55:13</sys_updated_on>
-        <template><![CDATA[<div class="body">
-	<div class="heading">
-    <p class="header">TUESDAY, MARCH 20</p>
-  </div>
-  <div class="day-entries-list">
- 		
-  </div>
-  <div class="heading">
-    <p class="header">MONDAY, MARCH 19</p>
-  </div>
-  <div class="day-entries-list">
- 		
+        <sys_updated_on>2018-04-03 00:05:04</sys_updated_on>
+        <template><![CDATA[<div class="main">
+  <div class="body" ng-repeat="timeEntry in data.timeEntries">
+    <div class="heading">
+      <p class="header">{{timeEntry.day}}</p>
+    </div>
+    <div class="day-entries-list">
+      <div class="day-entry" ng-repeat="entry in timeEntry.entry">
+        {{entry.description}}<br>
+        {{entry.start_time}} - {{entry.end_time}}
+        {{entry.project}}<br>
+        {{entry.hours}} hrs
+      </div>
+      <br>
+    </div>
   </div>
 </div>]]></template>
     </sp_widget>

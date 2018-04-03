@@ -105,11 +105,10 @@
         <roles/>
         <script><![CDATA[(function() {
 	
-
 	// Get most current time card for logged in user
 	var timeCard = new GlideRecord('x_143729_toggl_time_cards');
 	timeCard.addQuery('user', gs.getUserID());
-	timeCard.orderBy('sys_created_on');
+	timeCard.orderByDesc('sys_created_on');
 	timeCard.query();
 	timeCard.next();
 	
@@ -165,14 +164,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-03-29 14:19:32</sys_created_on>
         <sys_id>71405b4f4fc91300ab7100f18110c731</sys_id>
-        <sys_mod_count>92</sys_mod_count>
+        <sys_mod_count>94</sys_mod_count>
         <sys_name>Toggl Side Menu</sys_name>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
         <sys_policy/>
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
         <sys_update_name>sp_widget_71405b4f4fc91300ab7100f18110c731</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-03-30 18:08:10</sys_updated_on>
+        <sys_updated_on>2018-04-02 14:00:07</sys_updated_on>
         <template><![CDATA[<div class="main">
   <p class="week-info week-beginning">WEEK BEGINNING</p>
   <p class="week-info week-date">{{data.monthOfYear}}, {{data.dayOfMonth}}</p>

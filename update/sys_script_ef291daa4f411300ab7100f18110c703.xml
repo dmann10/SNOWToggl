@@ -29,7 +29,8 @@
         <rest_variables/>
         <role_conditions/>
         <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
-	
+
+	// Get all entries for this time card
 	var timeEntry = new GlideRecord('x_143729_toggl_time_card_entries');
 	timeEntry.addQuery('user', current.user.sys_id);
 	timeEntry.addQuery('work_week', current.work_week.sys_id);
@@ -40,20 +41,25 @@
 	var amountBilled = 0;
 	var additionalTime = 0;
 	
+	// For each time entry add the hours to the total hours count
 	while(timeEntry.next()) {
 		additionalTime = convertToDecimalTime(timeEntry);
 		totalHours += additionalTime;
+		// If this is a billable entry add the time to the billable hours
+		// count and the dollar amount billed to the total amount billed count
 		if(timeEntry.billable) {
 			billableHours += additionalTime;
 			amountBilled += (timeEntry.project.billable_rate_per_hour * additionalTime);
 		}
 	}
-
+	
+	// Get the current entries time card
 	var timeCard = new GlideRecord('x_143729_toggl_time_cards');
 	timeCard.addQuery('work_week', current.work_week.work_week);
 	timeCard.addQuery('user', current.user.sys_id);
 	timeCard.query();
 	
+	// Set the total hours, billable hours and amount billed of the time card
 	if(timeCard.next()) {
 		timeCard.total_hours = totalHours;
 		timeCard.billable_hours = billableHours;
@@ -61,6 +67,8 @@
 		timeCard.update();
 	}
 	
+	// Converts the time entered into a decimal value
+	// Ex.) '2:30' converts to 2.5 hours
 	function convertToDecimalTime(timeEntry) {
 		var hours, minutes;
 		hours = parseInt(timeEntry.hours.substring(0, 2));
@@ -75,7 +83,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>ef291daa4f411300ab7100f18110c703</sys_id>
-        <sys_mod_count>22</sys_mod_count>
+        <sys_mod_count>23</sys_mod_count>
         <sys_name>onInsert Add Hours to Time Card Total</sys_name>
         <sys_overrides/>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
@@ -83,7 +91,7 @@
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
         <sys_update_name>sys_script_ef291daa4f411300ab7100f18110c703</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-03-28 14:48:00</sys_updated_on>
+        <sys_updated_on>2018-04-02 13:23:26</sys_updated_on>
         <template/>
         <when>after</when>
     </sys_script>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database>
-    <element audit="true" extends="task" label="Time Cards" max_length="40" name="x_143729_toggl_time_cards" sizeclass="43" type="collection">
+    <element audit="true" extends="task" label="Time Cards" max_length="40" name="x_143729_toggl_time_cards" sizeclass="86" type="collection">
         <element default="0" label="Amount Billed" max_length="20" name="amount_billed" read_only="true" type="currency"/>
         <element default="0" label="Billable Hours" max_length="20" name="billable_hours" read_only="true" type="decimal"/>
         <element default="0" label="Total Hours" max_length="20" name="total_hours" read_only="true" type="decimal"/>
