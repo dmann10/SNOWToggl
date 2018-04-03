@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_css_include">
+    <sp_css_include action="INSERT_OR_UPDATE">
+        <name>Toggl Monsterrat</name>
+        <source>url</source>
+        <sp_css/>
+        <sys_class_name>sp_css_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-04-03 20:36:42</sys_created_on>
+        <sys_id>6066d6f44f5d1300ab7100f18110c7ec</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Toggl Monsterrat</sys_name>
+        <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
+        <sys_update_name>sp_css_include_6066d6f44f5d1300ab7100f18110c7ec</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-04-03 20:36:42</sys_updated_on>
+        <url>https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600</url>
+    </sp_css_include>
+</record_update>
