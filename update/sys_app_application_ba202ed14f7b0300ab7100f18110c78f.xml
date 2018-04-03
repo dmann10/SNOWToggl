@@ -8,14 +8,14 @@
         <hint/>
         <name>SNOW Toggl</name>
         <order>100</order>
-        <roles>x_143729_toggl.time_cards_user</roles>
+        <roles>x_143729_toggl.time_cards_user,x_143729_toggl.toggl_user</roles>
         <sys_class_name>sys_app_application</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-01-20 21:01:29</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>ba202ed14f7b0300ab7100f18110c78f</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>1</sys_mod_count>
         <sys_name>SNOW Toggl</sys_name>
         <sys_overrides/>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
@@ -23,7 +23,7 @@
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
         <sys_update_name>sys_app_application_ba202ed14f7b0300ab7100f18110c78f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-20 21:01:29</sys_updated_on>
+        <sys_updated_on>2018-04-03 15:51:34</sys_updated_on>
         <title>SNOW Toggl</title>
         <view_name/>
     </sys_app_application>
