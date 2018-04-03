@@ -13,7 +13,7 @@ TimeCards.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 
 	// Checks if the user is an approver on the current record
 	// and makes the Approve/Reject UI Actions visible when returning true
-	getApprovers: function(current) {
+	isApprover: function(current) {
 		var approvalRecord = new GlideRecord('sysapproval_approver');
 		approvalRecord.addQuery('sysapproval', current.sys_id);
 		approvalRecord.addQuery('state', 'requested');
@@ -33,13 +33,13 @@ TimeCards.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-03-26 15:37:07</sys_created_on>
         <sys_id>ddb3c4164f411300ab7100f18110c74b</sys_id>
-        <sys_mod_count>4</sys_mod_count>
+        <sys_mod_count>5</sys_mod_count>
         <sys_name>TimeCards</sys_name>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
         <sys_update_name>sys_script_include_ddb3c4164f411300ab7100f18110c74b</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-04-02 14:21:21</sys_updated_on>
+        <sys_updated_on>2018-04-03 19:45:20</sys_updated_on>
     </sys_script_include>
 </record_update>

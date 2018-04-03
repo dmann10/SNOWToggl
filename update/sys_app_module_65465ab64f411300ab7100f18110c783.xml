@@ -17,7 +17,7 @@
         <name/>
         <order>1</order>
         <override_menu_roles>false</override_menu_roles>
-        <query>https://dev28630.service-now.com/toggl</query>
+        <query>/toggl</query>
         <report/>
         <roles>x_143729_toggl.toggl_user</roles>
         <survey/>
@@ -28,7 +28,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>65465ab64f411300ab7100f18110c783</sys_id>
-        <sys_mod_count>1</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name>Toggl Portal</sys_name>
         <sys_overrides/>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
@@ -36,7 +36,7 @@
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
         <sys_update_name>sys_app_module_65465ab64f411300ab7100f18110c783</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-03-28 15:30:37</sys_updated_on>
+        <sys_updated_on>2018-04-03 19:28:11</sys_updated_on>
         <timeline_page/>
         <title>Toggl Portal</title>
         <uncancelable>false</uncancelable>

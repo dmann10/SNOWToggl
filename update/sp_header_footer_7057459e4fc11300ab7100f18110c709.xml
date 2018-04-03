@@ -229,69 +229,14 @@ var currentDate = new GlideDateTime();
 var dayOfWeek = currentDate.getDayOfWeekLocalTime();
 var monthOfYear = currentDate.getMonthLocalTime();
 
-switch(dayOfWeek) {
-	case 1:
-		data.dayOfWeek = "Monday";
-		break;
-	case 2:
-		data.dayOfWeek = "Tuesday";
-		break;
-	case 3:
-		data.dayOfWeek = "Wednesday";
-		break;
-	case 4:
-		data.dayOfWeek = "Thursday";
-		break;
-	case 5:
-		data.dayOfWeek = "Friday";
-		break;
-	case 6:
-		data.dayOfWeek = "Saturday";
-		break;
-	case 7:
-		data.dayOfWeek = "Sunday";
-		break;
-}
+var dayArray = ["", "Monday", "Tuesday", "Wednesday",
+							 "Thursday", "Friday", "Saturday", "Sunday"];
+var monthArray = ["", "January", "February", "March", "April", "May",
+									 "June", "July", "August", "September", "October",
+									 "November", "December"];
 
-switch(monthOfYear) {
-	case 1:
-		data.monthOfYear = "January";
-		break;
-	case 2:
-		data.monthOfYear = "February";
-		break;
-	case 3:
-		data.monthOfYear = "March";
-		break;
-	case 4:
-		data.monthOfYear = "April";
-		break;
-	case 5:
-		data.monthOfYear = "May";
-		break;
-	case 6:
-		data.monthOfYear = "June";
-		break;
-	case 7:
-		data.monthOfYear = "July";
-		break;
-	case 8:
-		data.monthOfYear = "August";
-		break;
-	case 9:
-		data.monthOfYear = "September";
-		break;
-	case 10:
-		data.monthOfYear = "October";
-		break;
-	case 11:
-		data.monthOfYear = "November";
-		break;
-	case 12:
-		data.monthOfYear = "December";
-		break;
-}
-
+data.dayOfWeek = dayArray[dayOfWeek];
+data.monthOfYear = monthArray[monthOfYear];	
 data.dayOfMonth = currentDate.getDayOfMonthLocalTime();
 ]]></script>
         <servicenow>false</servicenow>
@@ -299,14 +244,14 @@ data.dayOfMonth = currentDate.getDayOfMonthLocalTime();
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-03-26 20:25:44</sys_created_on>
         <sys_id>7057459e4fc11300ab7100f18110c709</sys_id>
-        <sys_mod_count>60</sys_mod_count>
+        <sys_mod_count>61</sys_mod_count>
         <sys_name>Toggl Header</sys_name>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
         <sys_policy/>
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
         <sys_update_name>sp_header_footer_7057459e4fc11300ab7100f18110c709</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-03-29 14:53:05</sys_updated_on>
+        <sys_updated_on>2018-04-03 20:11:19</sys_updated_on>
         <template><![CDATA[<div class="wrapper">
   <nav class="navbar-inverse" ng-class="::{'navbar':!isViewNative, 'is-native': isViewNative}"
        role="navigation">

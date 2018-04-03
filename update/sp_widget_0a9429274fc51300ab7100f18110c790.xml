@@ -119,12 +119,20 @@ i {
 	// Accepts a timeEntry glide record as a parameter and builds time entries for that objects date
 	// Returns an object containing a day of the week and an array of timeEntry objects
 	function buildEntriesByDay(timeEntry) {
+		
+		var dayArray = ["", "Monday", "Tuesday", "Wednesday",
+							 "Thursday", "Friday", "Saturday", "Sunday"];
+		
+		var monthArray = ["", "January", "February", "March", "April", "May",
+									 "June", "July", "August", "September", "October",
+									 "November", "December"];
+		
 		// Builds the string format of the date 
 		// ex.) Tuesday, March 2
 		var gdt = new GlideDateTime(timeEntry.date + ' 12:00:00');
 		var dayNum = gdt.getDayOfMonthLocalTime();
-		var dayString = getDayOfWeek(gdt.getDayOfWeekLocalTime());
-		var month = getMonthOfYear(gdt.getMonthLocalTime());
+		var dayString = dayArray[gdt.getDayOfWeekLocalTime()];
+		var month = monthArray[gdt.getMonthLocalTime()];
 		
 		// Time entry object to be returned
 		var timeEntryObj = {
@@ -151,56 +159,6 @@ i {
 		return timeEntryObj;
 	}
 	
-	// Helper function which returns a day as a string
-	function getDayOfWeek(day) {
-		switch(day) {
-			case 1:
-				return "Monday";
-			case 2:
-				return "Tuesday";
-			case 3:
-				return "Wednesday";
-			case 4:
-				return "Thursday";
-			case 5:
-				return "Friday";
-			case 6:
-				return "Saturday";
-			case 7:
-				return "Sunday";
-		}
-	}
-	
-	// Helper function which returns a month as a string
-	function getMonthOfYear(month) {
-		switch(month) {
-			case 1:
-				return "January";
-			case 2:
-				return "February";
-			case 3:
-				return "March";
-			case 4:
-				return "April";
-			case 5:
-				return "May";
-			case 6:
-				return "June";
-			case 7:
-				return "July";
-			case 8:
-				return "August";
-			case 9:
-				return "September";
-			case 10:
-				return "October";
-			case 11:
-				return "November";
-			case 12:
-				return "December";
-		}
-	}
-
 })();
 ]]></script>
         <servicenow>false</servicenow>
@@ -208,14 +166,14 @@ i {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-03-30 19:46:02</sys_created_on>
         <sys_id>0a9429274fc51300ab7100f18110c790</sys_id>
-        <sys_mod_count>120</sys_mod_count>
+        <sys_mod_count>121</sys_mod_count>
         <sys_name>Toggl Time Entry List</sys_name>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
         <sys_policy/>
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
         <sys_update_name>sp_widget_0a9429274fc51300ab7100f18110c790</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-04-03 15:19:29</sys_updated_on>
+        <sys_updated_on>2018-04-03 20:16:31</sys_updated_on>
         <template><![CDATA[<div class="main">
   <div class="body" ng-repeat="timeEntry in data.timeEntries">
     <div class="heading">

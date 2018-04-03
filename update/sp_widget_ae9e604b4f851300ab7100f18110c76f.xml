@@ -5,17 +5,17 @@
         <client_script><![CDATA[function ($timeout) {
 	var c = this;
 
-	var z = c.options.zone || "America/Los_Angeles"
-	c.date = moment().tz(z);
+	var optionsTimeZone = c.options.zone || "America/Los_Angeles"
+	c.date = moment().tz(optionsTimeZone);
 	
 	(function tick() {
-		c.date = new moment().tz(z);
+		c.date = new moment().tz(optionsTimeZone);
 		c.hours = c.date.hours();
 		c.minutes = c.date.minutes();
 		c.meritime = "";
-		var t = c.date.hours();
+		var hour = c.date.hours();
 		
-		if (t > 12) {
+		if (hour > 12) {
 			c.meritime = "PM";
 		} else {
 			c.meritime = "AM"
@@ -103,15 +103,17 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-03-29 02:33:10</sys_created_on>
         <sys_id>ae9e604b4f851300ab7100f18110c76f</sys_id>
-        <sys_mod_count>25</sys_mod_count>
+        <sys_mod_count>29</sys_mod_count>
         <sys_name>Digital Clock</sys_name>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
         <sys_policy/>
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
         <sys_update_name>sp_widget_ae9e604b4f851300ab7100f18110c76f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-03-29 18:03:36</sys_updated_on>
-        <template><![CDATA[<p id="time"><span class="light-purple meritime">{{c.meritime}}</span>{{c.hours}}:{{c.minutes}}</p>
+        <sys_updated_on>2018-04-03 20:05:41</sys_updated_on>
+        <template><![CDATA[<p id="time">
+  <span class="light-purple meritime">{{c.meritime}}</span>{{c.hours}}:{{c.minutes}}
+</p>
 ]]></template>
     </sp_widget>
 </record_update>

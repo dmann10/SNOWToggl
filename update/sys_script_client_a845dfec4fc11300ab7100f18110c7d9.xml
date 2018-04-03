@@ -15,11 +15,11 @@
 		return;
 	}
 	
-	var getHours = new GlideAjax('TimeEntries');
-	getHours.addParam('sysparm_name', 'getHours');
-	getHours.addParam('sysparm_startTime', g_form.getValue('start_time'));
-	getHours.addParam('sysparm_endTime', newValue);
-	getHours.getXML(populateHoursField);
+	var calculateHours = new GlideAjax('TimeEntries');
+	calculateHours.addParam('sysparm_name', 'getHours');
+	calculateHours.addParam('sysparm_startTime', g_form.getValue('start_time'));
+	calculateHours.addParam('sysparm_endTime', newValue);
+	calculateHours.getXML(populateHoursField);
 	
 	function populateHoursField(response) {
 		var hoursValue = response.responseXML.documentElement.getAttribute("answer");
@@ -33,7 +33,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>a845dfec4fc11300ab7100f18110c7d9</sys_id>
-        <sys_mod_count>9</sys_mod_count>
+        <sys_mod_count>10</sys_mod_count>
         <sys_name>Calculate Time Entry Hours by End Time</sys_name>
         <sys_overrides/>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
@@ -41,7 +41,7 @@
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
         <sys_update_name>sys_script_client_a845dfec4fc11300ab7100f18110c7d9</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-03-28 14:51:10</sys_updated_on>
+        <sys_updated_on>2018-04-03 19:52:18</sys_updated_on>
         <table>x_143729_toggl_time_card_entries</table>
         <type>onChange</type>
         <ui_type>10</ui_type>

@@ -19,7 +19,7 @@
         <filter_condition/>
         <is_rest>false</is_rest>
         <message/>
-        <name>validateTimeEntryDate</name>
+        <name>Validate Time Entry Date</name>
         <order>100</order>
         <priority>100</priority>
         <rest_method/>
@@ -49,15 +49,15 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>71ab44854f8d1300ab7100f18110c747</sys_id>
-        <sys_mod_count>11</sys_mod_count>
-        <sys_name>validateTimeEntryDate</sys_name>
+        <sys_mod_count>12</sys_mod_count>
+        <sys_name>Validate Time Entry Date</sys_name>
         <sys_overrides/>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
         <sys_policy/>
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
         <sys_update_name>sys_script_71ab44854f8d1300ab7100f18110c747</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-04-02 13:29:28</sys_updated_on>
+        <sys_updated_on>2018-04-03 19:43:47</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>

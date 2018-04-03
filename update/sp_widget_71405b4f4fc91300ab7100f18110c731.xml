@@ -116,48 +116,13 @@
 	// Get the month and day for this time card's work week
 	var gdt = new GlideDateTime(timeCard.work_week);
 	var month = gdt.getMonthLocalTime();
-	data.monthOfYear = "";
+	var monthArray = ["", "January", "February", "March", "April", "May",
+									 "June", "July", "August", "September", "October",
+									 "November", "December"];
+	
+	data.monthOfYear = monthArray[month];
 	data.dayOfMonth = gdt.getDayOfMonthLocalTime();
 	data.totalHours = timeCard.total_hours.toString();
-	
-	switch(month) {
-	case 1:
-		data.monthOfYear = "January";
-		break;
-	case 2:
-		data.monthOfYear = "February";
-		break;
-	case 3:
-		data.monthOfYear = "March";
-		break;
-	case 4:
-		data.monthOfYear = "April";
-		break;
-	case 5:
-		data.monthOfYear = "May";
-		break;
-	case 6:
-		data.monthOfYear = "June";
-		break;
-	case 7:
-		data.monthOfYear = "July";
-		break;
-	case 8:
-		data.monthOfYear = "August";
-		break;
-	case 9:
-		data.monthOfYear = "September";
-		break;
-	case 10:
-		data.monthOfYear = "October";
-		break;
-	case 11:
-		data.monthOfYear = "November";
-		break;
-	case 12:
-		data.monthOfYear = "December";
-		break;
-}
 
 })();]]></script>
         <servicenow>false</servicenow>
@@ -165,14 +130,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-03-29 14:19:32</sys_created_on>
         <sys_id>71405b4f4fc91300ab7100f18110c731</sys_id>
-        <sys_mod_count>94</sys_mod_count>
+        <sys_mod_count>95</sys_mod_count>
         <sys_name>Toggl Side Menu</sys_name>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
         <sys_policy/>
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
         <sys_update_name>sp_widget_71405b4f4fc91300ab7100f18110c731</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-04-02 14:00:07</sys_updated_on>
+        <sys_updated_on>2018-04-03 20:04:15</sys_updated_on>
         <template><![CDATA[<div class="main">
   <p class="week-info week-beginning">WEEK BEGINNING</p>
   <p class="week-info week-date">{{data.monthOfYear}}, {{data.dayOfMonth}}</p>
