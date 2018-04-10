@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_angular_provider">
+    <sp_angular_provider action="INSERT_OR_UPDATE">
+        <name>togglDatePicker</name>
+        <script><![CDATA[function() {
+	return {
+		restrict: 'AE',	
+		scope: {
+			date: '='
+		},
+		templateUrl: 'date-picker.html',
+
+		link: function($scope) {
+			$('#datetimepicker').datetimepicker({
+				defaultDate: new Date(),
+				format: 'MM/DD'		
+			});
+		}
+	};
+}]]></script>
+        <sys_class_name>sp_angular_provider</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-04-08 23:10:11</sys_created_on>
+        <sys_id>1e89202a4f911300ab7100f18110c76d</sys_id>
+        <sys_mod_count>52</sys_mod_count>
+        <sys_name>togglDatePicker</sys_name>
+        <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
+        <sys_update_name>sp_angular_provider_1e89202a4f911300ab7100f18110c76d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-04-09 19:52:07</sys_updated_on>
+        <type>directive</type>
+    </sp_angular_provider>
+</record_update>

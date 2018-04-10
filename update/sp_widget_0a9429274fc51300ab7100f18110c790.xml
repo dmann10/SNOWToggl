@@ -2,7 +2,20 @@
 <record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[function() {  /* widget controller */  var c = this;}]]></client_script>
+        <client_script><![CDATA[function(spUtil, $scope) {  
+	/* widget controller */  
+	var c = this;
+	
+	$rootScope.$on('insertEntry', function(event, data) {
+		c.server.refresh();
+	});
+	
+	spUtil.recordWatch($scope,'x_143729_toggl_time_card_entries','userDYNAMIC90d1921e5f510100a9ad2572f2b477fe',
+		function(name, data) {
+			if(name.data.operation === "insert" || name.data.operation === "delete" || name.data.operation === "update")
+				spUtil.update($scope);		
+		});
+}]]></client_script>
         <controller_as>c</controller_as>
         <css>.main {
 	max-height: 80vh;
@@ -11,9 +24,16 @@
   margin: 0 auto;
 }
 
+.empty-entries-list {
+	text-align: center;
+  padding-top: 30vh;
+ 	color: #53668d;
+  font-weight: bold;
+  letter-spacing: .5px;
+}
+
 .body {
   width: 100%;
-	
 }
 
 .heading {
@@ -83,7 +103,8 @@ i {
   font-size: 20px;
   font-weight: bold;
   margin: 0;
-}</css>
+}
+</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -99,9 +120,17 @@ i {
         <roles/>
         <script><![CDATA[(function() {
   
+	// Get the users current Time Card
+	var gr_timeCard = new GlideRecord('x_143729_toggl_time_cards');
+	gr_timeCard.addQuery('user', gs.getUserID());
+	gr_timeCard.orderByDesc('work_week');
+	gr_timeCard.query();
+	gr_timeCard.next();
+	
 	// Get all of this users time entries for the week 
 	var gr_timeEntry = new GlideRecord('x_143729_toggl_time_card_entries');
-  gr_timeEntry.addEncodedQuery('userDYNAMIC90d1921e5f510100a9ad2572f2b477fe^work_week.work_weekONThis week@javascript:gs.beginningOfThisWeek()@javascript:gs.endOfThisWeek()');
+  gr_timeEntry.addQuery('user', gs.getUserID());
+	gr_timeEntry.addQuery('work_week', gr_timeCard.sys_id);
 	gr_timeEntry.orderByDesc('date');
 	gr_timeEntry.query();
 	
@@ -141,18 +170,28 @@ i {
 		};
 		
 		// Glide Record of time entries for the given date in descending order
-		var gr_entries = new GlideRecord('x_143729_toggl_time_card_entries');
-		gr_entries.addQuery('user', gs.getUserID());
-		gr_entries.addQuery('work_week.work_week', timeEntry.work_week.work_week);
-		gr_entries.addQuery('date', timeEntry.date);
-		gr_entries.orderByDesc('start_time');
-		gr_entries.query();
+		var gr_entry = new GlideRecord('x_143729_toggl_time_card_entries');
+		gr_entry.addQuery('user', gs.getUserID());
+		gr_entry.addQuery('work_week.work_week', timeEntry.work_week.work_week);
+		gr_entry.addQuery('date', timeEntry.date);
+		gr_entry.orderByDesc('start_time');
+		gr_entry.query();
 		
 		// For each glide record build an entry object and push it into the timeEntryObj.entry array
-		while(gr_entries.next()) {
+		while(gr_entry.next()) {
 			var entryObj = {};
-			$sp.getRecordDisplayValues(entryObj, gr_entries, 
-				'project,date,start_time,end_time,billable,hours,description');
+			$sp.getRecordValues(entryObj, gr_entry, 
+				'date,billable,hours,description');
+			entryObj.project = gr_entry.project.getDisplayValue();
+			
+			var gdt_startTime = new GlideDateTime();
+			gdt_startTime.setValue(gr_entry.start_time);
+			entryObj.start_time = gdt_startTime.getLocalTime().getByFormat('hh:mma');
+			
+			var gdt_endTime = new GlideDateTime();
+			gdt_endTime.setValue(gr_entry.end_time);
+			entryObj.end_time = gdt_endTime.getLocalTime().getByFormat('hh:mma');
+			
 			timeEntryObj.entry.push(entryObj);
 		}
 		
@@ -166,15 +205,20 @@ i {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-03-30 19:46:02</sys_created_on>
         <sys_id>0a9429274fc51300ab7100f18110c790</sys_id>
-        <sys_mod_count>124</sys_mod_count>
+        <sys_mod_count>242</sys_mod_count>
         <sys_name>Toggl Time Entry List</sys_name>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
         <sys_policy/>
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
         <sys_update_name>sp_widget_0a9429274fc51300ab7100f18110c790</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-04-03 20:39:15</sys_updated_on>
-        <template><![CDATA[<div class="main">
+        <sys_updated_on>2018-04-10 20:06:26</sys_updated_on>
+        <template><![CDATA[<div class="main"> 
+  
+  <div class="empty-entries-list" ng-show="data.timeEntries.length == 0">
+    <p>You haven't submitted any entries this week!</p>
+  </div>
+  
   <div class="body" ng-repeat="timeEntry in data.timeEntries">
     <div class="heading">
       <p class="header">{{timeEntry.day}}</p>
@@ -190,10 +234,10 @@ i {
        	<div class="entry-hours-div">
           <p>{{entry.hours}} hrs</p>
         </div>
-        
       </div>
     </div>
   </div>
+  
 </div>]]></template>
     </sp_widget>
 </record_update>

@@ -23,14 +23,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-01-20 20:38:15</sys_created_on>
         <sys_id>1ada5e994f370300ab7100f18110c7ae</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>5</sys_mod_count>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-04-03 15:51:34</sys_updated_on>
+        <sys_updated_on>2018-04-10 20:12:34</sys_updated_on>
         <template/>
         <trackable>true</trackable>
         <user_role display_value="x_143729_toggl.toggl_user" name="x_143729_toggl.toggl_user">375b44554f011300ab7100f18110c7f1</user_role>
         <vendor/>
         <vendor_prefix/>
-        <version>1.0.0</version>
+        <version>0.1.2</version>
     </sys_app>
 </record_update>

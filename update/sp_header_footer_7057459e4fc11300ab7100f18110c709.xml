@@ -222,7 +222,9 @@ if (data.menu && data.menu.data) {
 data.loginWidget = $sp.getWidgetFromInstance('login-modal');
 data.typeahead = $sp.getWidgetFromInstance('typeahead-search');
 
-data.clockOptions = {"zone": "US/Eastern"};
+var session = gs.getSession();
+var timeZone = session.getTimeZoneName();
+data.clockOptions = {"zone": timeZone};
 
 // Get Today's Date
 var currentDate = new GlideDateTime();
@@ -244,14 +246,14 @@ data.dayOfMonth = currentDate.getDayOfMonthLocalTime();
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-03-26 20:25:44</sys_created_on>
         <sys_id>7057459e4fc11300ab7100f18110c709</sys_id>
-        <sys_mod_count>61</sys_mod_count>
+        <sys_mod_count>64</sys_mod_count>
         <sys_name>Toggl Header</sys_name>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
         <sys_policy/>
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
         <sys_update_name>sp_header_footer_7057459e4fc11300ab7100f18110c709</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-04-03 20:11:19</sys_updated_on>
+        <sys_updated_on>2018-04-10 17:58:19</sys_updated_on>
         <template><![CDATA[<div class="wrapper">
   <nav class="navbar-inverse" ng-class="::{'navbar':!isViewNative, 'is-native': isViewNative}"
        role="navigation">

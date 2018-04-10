@@ -2,11 +2,88 @@
 <record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[function() {
+        <client_script><![CDATA[function($timeout, $rootScope, spUtil) {
   /* widget controller */
   var c = this;
 	
-	c.toggleBillable = false;
+	// Initialize billable to false and project to the first project
+	// in the data.projects array and description to an empty string
+	c.data.billable = false;
+	c.data.project = c.data.projects[0].sys_id;
+	c.data.description = '';
+	
+	// On click of AM or PM, toggle between the two values
+	c.toggleMeritime = function(maridiemObj) {	
+		if(maridiemObj.isAM) {
+			maridiemObj.isAM = !maridiemObj.isAM;
+			maridiemObj.maridiem = "PM";
+		}
+		else {
+			maridiemObj.isAM = !maridiemObj.isAM;
+			maridiemObj.maridiem = "AM";
+		}
+	}
+	
+	// On blur of a time entry, format the time
+	// to human readable time
+	c.formatInput = function(isStartTime) {
+		var value;
+		if(isStartTime) {
+			value = c.data.start_time.split('');
+			c.data.start_time = formatTime(value);
+		}
+		else {
+			value = c.data.end_time.split('');
+			c.data.end_time = formatTime(value);
+		}
+	}
+	
+	// Format the time input to standard time
+	function formatTime(value) {
+		// If there is no colon and the input has 5 characters
+		// replace the 3rd character with a colon
+		if(value.indexOf(':') === -1 && value.length === 5) {
+			value[value.length - 3] = ':';
+			return value.join('');
+		}
+		// If there is no colon and the input is 3 or more characters
+		// add a colon two indexes from the right
+		else if(value.indexOf(':') === -1 && value.length > 2) {
+			value.splice(-2, 0, ':');
+			return value.join('');
+		}
+		// If the input is 2 or less characters and not empty
+		// add :00 to the end
+		else if(value.length <= 2 && value.length > 0) {
+			value.push(':00');
+			return value.join('');
+		}
+		// Else return the original value
+		else
+			return value.join('');
+	}
+	
+	// On submit, insert the record into the database and display
+	// either a success or error message
+	c.submitForm = function() {
+		
+		c.server.update().then(function(response) {
+			if(response.status == 'success') {
+				c.message = null; // Hide the error message
+				c.success = response.message;
+						
+				spUtil.addTrivialMessage(c.success);
+			}
+			else if(response.status == 'error') {
+				c.message = response.message;	
+				spUtil.addErrorMessage(c.message);
+			}
+			
+			// Emit an insert event to the $rootScope
+			$rootScope.$emit('insertEntry', c.data.entryID);
+		});
+	}
+
 }]]></client_script>
         <controller_as>c</controller_as>
         <css>.body {
@@ -65,7 +142,7 @@ input::placeholder {
 }
 
 .billable-active {
-	// color: #38c430;
+	color: #38c430;
   opacity: 1;
 }
 
@@ -105,6 +182,86 @@ select::-ms-expand {
 	margin-top: 15px;
   cursor: pointer;
 }
+
+/* Time Input Styles */
+.time-input-container {
+	text-align: center;
+  margin-top: 100px;
+}
+
+.time-input-div {
+	display: inline-block;
+  border-bottom: 1px solid #6e97c8;
+}
+
+.time {
+	font-size: 36px;
+  color: #5e7094;
+  margin: 0;
+}
+
+.time-input {
+	background: none;
+  border: none;
+  box-shadow: none;
+  width: 105px;
+}
+
+#to-p {
+	display: inline-block;
+  position: relative;
+  bottom: 7px;
+  margin-right: 40px;
+  margin-left: 8px;
+}
+
+.maridiem {
+	font-size: 16px;
+  vertical-align: top;
+  cursor: pointer;
+}
+
+.light-purple {
+	color: #6e97c8;
+}
+
+.total-hours-div {
+  margin: 100px 0px;
+	text-align: center;
+}
+
+.log-time-btn {
+	width: 40%;
+  padding: 15px 0px;
+  margin: 0 auto;
+  border: none;
+  background-color: #6e97c8;
+  color: white;
+}
+
+/* Custom Date Picker Styles */
+.form-group:last-child {
+	border: none;
+  display: inline-block;
+  min-width: 50px;
+  max-width: 60px;
+  margin: 0;
+}
+
+.input-group.date {
+  display: inline-block;
+  min-height: 40px;
+ 
+}
+
+#datetimepicker {
+  background: none;
+  box-shadow: none;
+  padding: 0px 5px;
+  border-radius: 5px;
+  top: 10px;
+  color: #49688a;
+}
 </css>
         <data_table>sp_instance</data_table>
         <demo_data/>
@@ -121,17 +278,139 @@ select::-ms-expand {
         <roles/>
         <script><![CDATA[(function() {
   
-	var gr_project = new GlideRecord('x_143729_toggl_projects');
-	gr_project.query();
+	if(!input) {
+		
+		// Fetch this users current time card and set data.work_week 
+		var grWorkWeek = new GlideRecord('x_143729_toggl_time_cards');
+		grWorkWeek.addEncodedQuery('userDYNAMIC90d1921e5f510100a9ad2572f2b477fe^work_weekONThis week@javascript:gs.beginningOfThisWeek()@javascript:gs.endOfThisWeek()');
+		grWorkWeek.query();
+		
+		if(grWorkWeek.next()) { 
+			data.work_week = grWorkWeek.sys_id.toString();
+		}
+		
+		// Load all active projects
+		var grProject = new GlideRecord('x_143729_toggl_projects');
+		grProject.addQuery('active', true);
+		grProject.orderBy('name');
+		grProject.query();
+
+		data.projects = [];
+		while(grProject.next()) {
+			var project = {}
+
+			$sp.getRecordDisplayValues(project, grProject, 
+				'name,billable,billable_rate_per_hour,sys_id');
+
+			data.projects.push(project);
+		}
+
+		// Set Start and End Times as AM
+		data.start_time_maridiem = {
+			maridiem : "AM",
+			isAM : true
+		}
+		data.end_time_maridiem = {
+			maridiem : "AM",
+			isAM : true
+		} 
+		
+		// Get the current date and time and initialize the data, start time and end time fields
+		var currentDate = new GlideDateTime();
+		data.date = currentDate.getLocalDate().getByFormat('MM/dd');
+		data.start_time = currentDate.getLocalTime().getByFormat("hh:mm");
+		data.end_time = currentDate.getLocalTime().getByFormat("hh:mm");
+		
+		// Get the current time and check if it's AM or PM
+		// if PM, set start and end time as PM
+		var currentTime = new GlideTime();
+		if(currentTime.getHourOfDayLocalTime() >= 12) {
+			data.start_time_maridiem.maridiem = "PM";
+			data.start_time_maridiem.isAM = false;
+			
+			data.end_time_maridiem.maridiem = "PM";
+			data.end_time_maridiem.isAM = false;
+		}
+	}
 	
-	data.projects = [];
-	while(gr_project.next()) {
-		var project = {}
+	// initialize hours to zero
+	data.hours = 0;
+	
+	// On submission of the time entry form insert the entry into the
+	// time card entries table 
+	if(input) {
 		
-		$sp.getRecordDisplayValues(project, gr_project, 
-			'name,billable,billable_rate_per_hour,sys_id');
+		// Insert Time Entry
+		var grTimeEntry = new GlideRecord('x_143729_toggl_time_card_entries');
+		grTimeEntry.initialize();
+		grTimeEntry.user = gs.getUserID();
+		grTimeEntry.project = input.project.toString();
+		grTimeEntry.work_week = input.work_week;
+		grTimeEntry.date = getEntryDateValue(input.date.toString());
+		grTimeEntry.start_time = getEntryTimeValue(input.start_time.toString(), true);
+		grTimeEntry.end_time = getEntryTimeValue(input.end_time.toString(), false);
+		grTimeEntry.billable = input.billable.toString();
+		grTimeEntry.hours = calculateHours(grTimeEntry.start_time.toString(), grTimeEntry.end_time.toString());
+		grTimeEntry.description = input.description.toString();
+		var timeEntrySysId = grTimeEntry.insert();
 		
-		data.projects.push(project);
+		// If the record is created successfully, send the success message
+		// to the client and set the hours field, else send the error message
+		if(!gs.nil(timeEntrySysId)) {
+			data.status = 'success';
+			data.message = 'Your time card has been submitted successfully';
+			data.hours = grTimeEntry.hours.toString();
+			data.entryID = timeEntrySysId;
+		} else {
+			data.status = 'error';
+		}
+		
+	}
+	
+	// Takes the date field string value and returns a GlideDateTime object
+	function getEntryDateValue(dateInput) {
+		var gdtDateEntry = new GlideDateTime();
+		var month = parseInt(dateInput.substring(0, 2));
+		var day = parseInt(dateInput.substring(3));
+		
+		gdtDateEntry.setDayOfMonthLocalTime(day);
+		gdtDateEntry.setMonthLocalTime(month);
+		
+		return gdtDateEntry;
+	}
+	
+	// Takes the time input string value and a boolean representing if it's the start or end date and
+	// returns a GlideTime object
+	function getEntryTimeValue(timeInput, isStartTime) {
+		var gdtTimeEntry = new GlideDateTime();
+		gdtTimeEntry.setDisplayValue("2018-01-01 " + timeInput + ':00', 'YYYY-mm-dd hh:mm:ss');	
+		
+		if(isStartTime && !input.start_time_maridiem.isAM) {
+			gdtTimeEntry.addSeconds(43200);
+		}
+		else if(!isStartTime && !input.end_time_maridiem.isAM) {
+			gdtTimeEntry.addSeconds(43200);
+		}
+
+		return gdtTimeEntry.getTime();
+	}
+	
+	// Calculates the difference between the start and end fields and 
+	// sets the hours field based on the difference
+	function calculateHours(startInput, endInput) {
+	
+		var gtStartTime = new GlideTime();
+		gtStartTime.setDisplayValue(startInput + ":00");
+		var gtEndTime = new GlideTime();
+		gtEndTime.setDisplayValue(endInput + ":00");
+		
+		var hours = (gtEndTime.getHourOfDayLocalTime() - gtStartTime.getHourOfDayLocalTime());		
+		var minutes = (gtEndTime.getMinutesLocalTime() - gtStartTime.getMinutesLocalTime());
+		
+		if(minutes < 10)
+			return (hours + ":0" + minutes);
+		else
+			return (hours + ":" + minutes);
 	}
 
 })();]]></script>
@@ -140,30 +419,76 @@ select::-ms-expand {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-03-30 18:20:32</sys_created_on>
         <sys_id>f5011dab4f851300ab7100f18110c7fd</sys_id>
-        <sys_mod_count>141</sys_mod_count>
+        <sys_mod_count>530</sys_mod_count>
         <sys_name>Toggl Time Entry Form</sys_name>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
         <sys_policy/>
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
         <sys_update_name>sp_widget_f5011dab4f851300ab7100f18110c7fd</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-04-03 19:24:04</sys_updated_on>
+        <sys_updated_on>2018-04-10 17:10:39</sys_updated_on>
         <template><![CDATA[<div class="body">
 	<div class="heading">
     <p class="header">TIME TRACKER</p>
   </div>
-  <div class="main">
-    <p>What are you working on?</p>
-    <div class="form-group">
-      <input type="text" class="task-input" placeholder="Enter your task details here">
-      <span ng-click="c.toggleBillable = !c.toggleBillable" ng-class="{'billable-active': c.toggleBillable}" class="billable-btn"><i class="fa fa-dollar fa-lg"></i></span>
-    </div>
-    <div class="select-div">
-      <select>
-        <option ng-repeat="project in data.projects" value="{{project.sys_id}}" >{{project.name}}</option>
-      </select>
-		</div>
-  </div>
+  
+  <form name="time-entry" ng-submit="c.submitForm()">
+    <div class="main">
+      <p>What are you working on?</p>
+      <div class="form-group">
+        <input type="text" class="task-input" placeholder="Enter your task details here" required
+               ng-model="c.data.description">
+        <span class="billable-btn"
+              ng-click="c.data.billable = !c.data.billable" 
+              ng-class="{'billable-active': c.data.billable}">
+          <i class="fa fa-dollar fa-lg"></i>
+        </span>
+      </div>
+      <div class="select-div">
+        <select ng-model="c.data.project"
+                ng-options="project.sys_id as project.name for project in c.data.projects">
+        </select>
+      </div>
+
+      <div class="time-input-container">
+
+        <div class="time-input-div">
+          <p class="time">
+            <span class="light-purple maridiem" id="start-time"
+                  ng-click="c.toggleMeritime(c.data.start_time_maridiem)">{{c.data.start_time_maridiem.maridiem}}</span>
+            <input type="text" class="time-input" maxlength="5" 
+                   ng-model="c.data.start_time"
+                   ng-blur="c.formatInput(true)"/>
+          </p>
+        </div>
+
+        <toggl-date-picker date="c.data.date"></toggl-date-picker>
+
+        <p id="to-p">TO</p>
+
+        <div class="time-input-div">
+          <p class="time">
+            <span class="light-purple maridiem" id="end-time"
+                  ng-click="c.toggleMeritime(c.data.end_time_maridiem)">{{c.data.end_time_maridiem.maridiem}}</span>
+            <input type="text" class="time-input" maxlength="5" 
+                   ng-model="c.data.end_time"
+                   ng-blur="c.formatInput(false)"/>
+          </p>
+        </div>
+        
+      </div>
+
+      <div class="total-hours-div">
+        <p style="font-size:40px;margin-bottom:0px;">{{c.data.hours}}</p>
+        <p style="font-size:18px">Hours</p>
+      </div>
+
+      <div style="text-align:center;">
+        <button type="submit" name="submit" class="log-time-btn">LOG TIME</button>
+      </div>
+   </div>      
+  </form>
+
 </div>]]></template>
     </sp_widget>
 </record_update>

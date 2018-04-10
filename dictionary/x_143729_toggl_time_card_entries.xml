@@ -5,7 +5,7 @@
         <element default="javascript: new GlideDate();" label="Date" mandatory="true" max_length="40" name="date" type="glide_date"/>
         <element label="Description" mandatory="true" max_length="10000" name="description" type="string"/>
         <element label="End Time" max_length="40" name="end_time" type="glide_time"/>
-        <element label="Hours" max_length="40" name="hours" read_only="true" type="string"/>
+        <element default="0" label="Hours" max_length="40" name="hours" read_only="true" type="string"/>
         <element label="Project" mandatory="true" max_length="32" name="project" reference="x_143729_toggl_projects" type="reference"/>
         <element label="Start Time" max_length="40" name="start_time" type="glide_time"/>
         <element default="javascript: gs.getUserID();" label="User" max_length="32" name="user" read_only="true" reference="sys_user" type="reference"/>

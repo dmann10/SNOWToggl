@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="m2m_sp_ng_pro_sp_widget">
+    <m2m_sp_ng_pro_sp_widget action="INSERT_OR_UPDATE">
+        <sp_angular_provider display_value="togglDatePicker">1e89202a4f911300ab7100f18110c76d</sp_angular_provider>
+        <sp_widget display_value="Toggl Time Entry Form">f5011dab4f851300ab7100f18110c7fd</sp_widget>
+        <sys_class_name>m2m_sp_ng_pro_sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-04-08 23:10:53</sys_created_on>
+        <sys_id>eec9e02a4f911300ab7100f18110c739</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>togglDatePicker.Toggl Time Entry Form</sys_name>
+        <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
+        <sys_update_name>m2m_sp_ng_pro_sp_widget_eec9e02a4f911300ab7100f18110c739</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-04-08 23:10:53</sys_updated_on>
+    </m2m_sp_ng_pro_sp_widget>
+</record_update>

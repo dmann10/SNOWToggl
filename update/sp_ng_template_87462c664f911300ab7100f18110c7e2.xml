@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_ng_template">
+    <sp_ng_template action="INSERT_OR_UPDATE">
+        <id>date-picker.html</id>
+        <sp_widget display_value="Toggl Time Entry Form">f5011dab4f851300ab7100f18110c7fd</sp_widget>
+        <sys_class_name>sp_ng_template</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-04-08 22:57:33</sys_created_on>
+        <sys_id>87462c664f911300ab7100f18110c7e2</sys_id>
+        <sys_mod_count>31</sys_mod_count>
+        <sys_name>date-picker.html</sys_name>
+        <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
+        <sys_update_name>sp_ng_template_87462c664f911300ab7100f18110c7e2</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-04-09 19:50:48</sys_updated_on>
+        <template><![CDATA[<div class="form-group">
+  <div class='input-group date'>
+    <input type='text' class="form-control" id='datetimepicker'
+           ng-model='date'/>
+  </div>
+</div>]]></template>
+    </sp_ng_template>
+</record_update>
