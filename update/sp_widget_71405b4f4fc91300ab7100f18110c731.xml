@@ -10,6 +10,17 @@
 		c.server.refresh();
 	});
 	
+	$rootScope.$on('changeTimeCard', function(event, data) {
+		c.server.get({
+			action: 'changeTimeCard',
+			id: data
+		}).then(function(response){
+			c.data.monthOfYear = response.data.monthOfYear;
+			c.data.dayOfMonth = response.data.dayOfMonth;
+			c.data.totalHours = response.data.totalHours;
+		})
+	});
+	
 	spUtil.recordWatch($scope,'x_143729_toggl_time_card_entries','userDYNAMIC90d1921e5f510100a9ad2572f2b477fe',
 		function(name, data) {
 			if(name.data.operation === "insert" || name.data.operation === "delete" || name.data.operation === "update")
@@ -19,6 +30,7 @@
         <controller_as>c</controller_as>
         <css>.main {
 	text-align: center;
+  min-height: 100%;
 }
 
 .week-info {
@@ -100,6 +112,23 @@
   margin-bottom: 20px;
   font-size: 16px;
 }
+
+@media (min-width: 700px) and (max-width: 1000px) {
+  .menu-header {
+  	margin-left: 30%;
+  }
+  
+	.menu-list {
+    padding: 0;
+  	text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .menu {
+  	display: none;
+  }
+}
 </css>
         <data_table>sp_instance</data_table>
         <demo_data/>
@@ -115,33 +144,49 @@
         <public>false</public>
         <roles/>
         <script><![CDATA[(function() {
-	
-	// Get most current time card for logged in user
-	var grTimeCard = new GlideRecord('x_143729_toggl_time_cards');
-	grTimeCard.addQuery('user', gs.getUserID());
-	grTimeCard.orderByDesc('sys_created_on');
-	grTimeCard.query();
-	
-	var monthArray = ["", "January", "February", "March", "April", "May",
-										 "June", "July", "August", "September", "October",
-										 "November", "December"];
-	
-	if(grTimeCard.next()) {
-		// Get the month and day for this time card's work week
-		var gdtTimeCard = new GlideDateTime(grTimeCard.work_week + ' 12:00:00');
-		var timeCardMonth = gdtTimeCard.getMonthLocalTime();
 		
-		data.monthOfYear = monthArray[timeCardMonth];
-		data.dayOfMonth = gdtTimeCard.getDayOfMonthLocalTime();
-		data.totalHours = grTimeCard.total_hours.toString();
+	var grTimeCard = new GlideRecord('x_143729_toggl_time_cards');
+	
+	// If the a different time card is selected update the data object else,
+	// get most current time card for logged in user
+	if(input && input.action === 'changeTimeCard') {
+		grTimeCard.addQuery('user', gs.getUserID());
+		grTimeCard.addQuery('sys_id', input.id);
+		grTimeCard.query();
+
+		buildDataObj(grTimeCard);
 	}
 	else {
-		var gdt = new GlideDateTime();
-		var month = gdt.getMonthLocalTime();
+		grTimeCard.addQuery('user', gs.getUserID());
+		grTimeCard.orderByDesc('sys_created_on');
+		grTimeCard.query();
+
+		buildDataObj(grTimeCard);
+	}
+	
+	function buildDataObj(grTimeCard) {
 		
-		data.monthOfYear = monthArray[month];
-		data.dayOfMonth = gdt.getDayOfMonthLocalTime();
-		data.totalHours = 0;
+		var monthArray = ["", "January", "February", "March", "April", "May",
+											"June", "July", "August", "September", "October",
+											"November", "December"];
+
+		if(grTimeCard.next()) {
+			// Get the month and day for this time card's work week
+			var gdtTimeCard = new GlideDateTime(grTimeCard.work_week + ' 12:00:00');
+			var timeCardMonth = gdtTimeCard.getMonthLocalTime();
+
+			data.monthOfYear = monthArray[timeCardMonth];
+			data.dayOfMonth = gdtTimeCard.getDayOfMonthLocalTime();
+			data.totalHours = grTimeCard.total_hours.toString();
+		}
+		else {
+			var gdt = new GlideDateTime();
+			var month = gdt.getMonthLocalTime();
+
+			data.monthOfYear = monthArray[month];
+			data.dayOfMonth = gdt.getDayOfMonthLocalTime();
+			data.totalHours = 0;
+		}
 	}
 })();]]></script>
         <servicenow>false</servicenow>
@@ -149,21 +194,21 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-03-29 14:19:32</sys_created_on>
         <sys_id>71405b4f4fc91300ab7100f18110c731</sys_id>
-        <sys_mod_count>112</sys_mod_count>
+        <sys_mod_count>132</sys_mod_count>
         <sys_name>Toggl Side Menu</sys_name>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
         <sys_policy/>
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
         <sys_update_name>sp_widget_71405b4f4fc91300ab7100f18110c731</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-04-10 19:07:35</sys_updated_on>
+        <sys_updated_on>2018-04-17 22:20:44</sys_updated_on>
         <template><![CDATA[<div class="main">
   <p class="week-info week-beginning">WEEK BEGINNING</p>
-  <p class="week-info week-date">{{data.monthOfYear}}, {{data.dayOfMonth}}</p>
+  <p class="week-info week-date">{{c.data.monthOfYear}}, {{c.data.dayOfMonth}}</p>
 
 	<div class="circle outer-circle">
     <div class="circle inner-circle">
-      <p class="hours digits">{{data.totalHours}}</p>
+      <p class="hours digits">{{c.data.totalHours}}</p>
       <p class="hours">HOURS</p>
     </div>
   </div>
@@ -173,7 +218,7 @@
        <img id="stopwatch" src="stopwatch_icon.png"/><h3 class="menu-heading">TRACK</h3>
     </div>
     <div class="menu-list">
-      <a class="menu-item" href="#">MY TIME CARD</a>
+      <a class="menu-item" href="toggl?id=toggl_my_time_card">MY TIME CARDS</a>
       <a class="menu-item" href="#">REPORTS</a>
     </div>
   </div>

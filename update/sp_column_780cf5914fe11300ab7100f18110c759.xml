@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update table="sp_column">
     <sp_column action="INSERT_OR_UPDATE">
-        <class_name>sideBar</class_name>
-        <order>1</order>
+        <class_name/>
+        <order>3</order>
         <size>3</size>
         <size_lg/>
         <size_sm/>
         <size_xs/>
-        <sp_row display_value="1">37080bcb4fc91300ab7100f18110c79b</sp_row>
+        <sp_row display_value="1">f00cf5914fe11300ab7100f18110c754</sp_row>
         <sys_class_name>sp_column</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2018-03-29 13:43:37</sys_created_on>
-        <sys_id>fb080bcb4fc91300ab7100f18110c79d</sys_id>
+        <sys_created_on>2018-04-17 18:13:25</sys_created_on>
+        <sys_id>780cf5914fe11300ab7100f18110c759</sys_id>
         <sys_mod_count>4</sys_mod_count>
-        <sys_name>1</sys_name>
+        <sys_name>3</sys_name>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
         <sys_policy/>
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
-        <sys_update_name>sp_column_fb080bcb4fc91300ab7100f18110c79d</sys_update_name>
+        <sys_update_name>sp_column_780cf5914fe11300ab7100f18110c759</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-04-11 20:05:06</sys_updated_on>
+        <sys_updated_on>2018-04-18 18:44:10</sys_updated_on>
     </sp_column>
 </record_update>

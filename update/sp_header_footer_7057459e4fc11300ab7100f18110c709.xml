@@ -44,10 +44,10 @@
   font-weight: bold;
 }
 
-.wrapper {
+.main {
 	box-shadow: 0px 1px 10px rgba(0, 0, 0, .25);
-  padding-bottom: 0px;
   z-index: 100;
+  padding: 10px;
 }
 
 .header-container {
@@ -76,6 +76,33 @@
 	color: #6e97c8;
 }
 
+.navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+	background: none;
+}
+
+@media (max-width: 600px) { 
+  .main {
+  	padding-bottom: 0px;
+  }
+  
+  .header-container {
+  	width: 78%;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1000px) {
+  .header-container {
+  	width: 70%;
+  }
+}
+
+@media (min-width: 768px) {
+  .menu-item {
+  	display: none;
+  }
+}
+
+/* OOB Styles */
 .navbar {
   transition: 250ms opacity ease-in-out;
   -webkit-transition: 250ms opacity ease-in-out;
@@ -129,7 +156,7 @@ header[role="banner"],
 
 /* for mobile app */
 .navbar-inverse.is-native {
-  background-color: #405060;
+ background-color: #405060;
 }
 
 nav{
@@ -246,15 +273,15 @@ data.dayOfMonth = currentDate.getDayOfMonthLocalTime();
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-03-26 20:25:44</sys_created_on>
         <sys_id>7057459e4fc11300ab7100f18110c709</sys_id>
-        <sys_mod_count>64</sys_mod_count>
+        <sys_mod_count>102</sys_mod_count>
         <sys_name>Toggl Header</sys_name>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
         <sys_policy/>
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
         <sys_update_name>sp_header_footer_7057459e4fc11300ab7100f18110c709</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-04-10 17:58:19</sys_updated_on>
-        <template><![CDATA[<div class="wrapper">
+        <sys_updated_on>2018-04-17 23:23:17</sys_updated_on>
+        <template><![CDATA[<div class="main">
   <nav class="navbar-inverse" ng-class="::{'navbar':!isViewNative, 'is-native': isViewNative}"
        role="navigation">
     <div ng-show="::!isViewNative" class="navbar-header">
@@ -263,11 +290,11 @@ data.dayOfMonth = currentDate.getDayOfMonthLocalTime();
         <img ng-src="{{::portal.logo}}" title="ServiceNow" role="presentation" alt="${Portal Logo}" />
       </a>
 
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sp-nav-bar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sp-nav-bar" style="border: 1px solid #5e7094;">
         <span class="sr-only">${Toggle navigation}</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+        <span class="icon-bar" style="background: #5e7094;"></span>
+        <span class="icon-bar" style="background: #5e7094;"></span>
+        <span class="icon-bar" style="background: #5e7094;"></span>
       </button>
     </div>
     
@@ -280,7 +307,6 @@ data.dayOfMonth = currentDate.getDayOfMonthLocalTime();
     	</div>
     </div>
     
-
     <div sp-navbar-toggle="" class="collapse navbar-collapse navbar-right" id="sp-nav-bar">
       <!-- Include The Menu -->
       <sp-widget widget="data.menu"></sp-widget>
@@ -301,6 +327,8 @@ data.dayOfMonth = currentDate.getDayOfMonthLocalTime();
           </ul>
         </li>
         <li class="visible-xs-block"><a ng-href="?id=user_profile&sys_id={{::user.sys_id}}"><span class="navbar-avatar"><sn-avatar class="avatar-small-medium" primary="userID" /></span>{{::user.name}}</a></li>
+        <li><a class="menu-item" href="toggl?id=toggl_my_time_card">My Time Cards</a></li>
+        <li><a class="menu-item" href="#">Reports</a></li>
         <li ng-if="::!isViewNative" class="visible-xs-block"><a href="{{::portal.logoutUrl}}">${Logout}</a></li>
       </ul>
     </div>

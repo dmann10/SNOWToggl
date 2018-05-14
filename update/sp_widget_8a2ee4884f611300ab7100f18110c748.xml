@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope, $rootScope) {
+  /* widget controller */
+  var c = this;
+
+	var slides = c.data.dateRanges;
+  $scope.$watch(function () {
+    for (var i = 0; i < slides.length; i++) {
+      if (slides[i].active) {
+        return slides[i];
+      }
+    }
+  }, function (currentSlide, previousSlide) {
+    if (currentSlide !== previousSlide) {
+      $rootScope.$emit('changeTimeCard', currentSlide.timeCardId);
+    }
+  });
+	
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>#carouselControls {
+	margin: 30px 0px;
+}
+
+.carousel-control {
+	background: none;
+  opacity: 1;
+  width: 0;
+}
+
+span.glyphicon {
+	color: #53668d;
+}
+
+.carousel-indicators {
+	display: none;
+}
+
+.date-range {
+	font-weight: bold;
+  color: #53668d;
+  text-transform: uppercase;
+}
+
+#to {
+	color: #6e97c8;
+  margin: 0px 7.5px;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>toggl-time-card-picker</id>
+        <internal>false</internal>
+        <link/>
+        <name>Toggl Time Card Picker</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	
+	var grTimeCard = new GlideRecord('x_143729_toggl_time_cards');
+	grTimeCard.addQuery('user', gs.getUserID());
+	grTimeCard.orderByDesc('work_week');
+	grTimeCard.query();
+
+	var monthArray = ["", "January", "February", "March", "April", "May",
+										 "June", "July", "August", "September", "October",
+										 "November", "December"];
+	
+	data.dateRanges = [];
+	var rangeObj = {};
+	
+	while(grTimeCard.next()) {
+		rangeObj = getDateRangeObject(grTimeCard.work_week, monthArray);
+		rangeObj.timeCardId = grTimeCard.sys_id.toString();
+		data.dateRanges.push(rangeObj);		
+	}
+	
+	function getDateRangeObject(workWeek, monthArray) {
+		var dateRange = {};
+		
+		var gdtStartDate = new GlideDateTime();
+		gdtStartDate.setDisplayValue(workWeek + ' 00:00:00');
+	
+		var gdtEndDate = new GlideDateTime();
+		gdtEndDate.setDisplayValue(workWeek + ' 00:00:00');
+		gdtEndDate.addDaysLocalTime(6);
+		
+		var startDateMonth = gdtStartDate.getMonthLocalTime();
+		var endDateMonth = gdtEndDate.getMonthLocalTime();
+		dateRange.startDate = monthArray[startDateMonth] + ' ' + gdtStartDate.getDayOfMonthLocalTime();
+		dateRange.endDate = monthArray[endDateMonth] + ' ' + gdtEndDate.getDayOfMonthLocalTime();
+		
+		return dateRange;
+	}
+	
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-04-13 15:20:51</sys_created_on>
+        <sys_id>8a2ee4884f611300ab7100f18110c748</sys_id>
+        <sys_mod_count>99</sys_mod_count>
+        <sys_name>Toggl Time Card Picker</sys_name>
+        <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
+        <sys_update_name>sp_widget_8a2ee4884f611300ab7100f18110c748</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-04-17 15:41:23</sys_updated_on>
+        <template><![CDATA[<uib-carousel id="carouselControls" class="carousel slide" data-ride="carousel" data-interval="false">
+  <div class="carousel-inner">
+    <uib-slide class="carousel-item" active="dateRange.active" 
+               ng-repeat="dateRange in c.data.dateRanges">
+      <h3 class="d-block w-100 date-range">{{dateRange.startDate}}<span id="to">TO</span>{{dateRange.endDate}}</h3>
+    </uib-slide>
+  </div>
+</uib-carousel>]]></template>
+    </sp_widget>
+</record_update>

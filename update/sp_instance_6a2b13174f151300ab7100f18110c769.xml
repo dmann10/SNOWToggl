@@ -15,19 +15,19 @@
         <sp_widget display_value="Toggl Side Menu">71405b4f4fc91300ab7100f18110c731</sp_widget>
         <sys_class_name>sp_instance</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2018-03-29 14:39:14</sys_created_on>
-        <sys_id>9ac45b834f0d1300ab7100f18110c7cd</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_created_on>2018-04-11 20:01:17</sys_created_on>
+        <sys_id>6a2b13174f151300ab7100f18110c769</sys_id>
+        <sys_mod_count>0</sys_mod_count>
         <sys_name/>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
         <sys_policy/>
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
-        <sys_update_name>sp_instance_9ac45b834f0d1300ab7100f18110c7cd</sys_update_name>
+        <sys_update_name>sp_instance_6a2b13174f151300ab7100f18110c769</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-04-10 12:51:50</sys_updated_on>
+        <sys_updated_on>2018-04-11 20:01:17</sys_updated_on>
         <title/>
         <url/>
         <widget_parameters/>
     </sp_instance>
-    <sys_translated_text action="delete_multiple" query="documentkey=9ac45b834f0d1300ab7100f18110c7cd"/>
+    <sys_translated_text action="delete_multiple" query="documentkey=6a2b13174f151300ab7100f18110c769"/>
 </record_update>

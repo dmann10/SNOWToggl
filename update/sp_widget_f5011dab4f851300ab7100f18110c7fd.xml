@@ -12,7 +12,7 @@
 	c.data.project = c.data.projects[0].sys_id;
 	c.data.description = '';
 	
-	// On click of AM or PM, toggle between the two values
+	// On click of AM or PM, toggle between the two values and calculate hours
 	c.toggleMeritime = function(maridiemObj) {	
 		if(maridiemObj.isAM) {
 			maridiemObj.isAM = !maridiemObj.isAM;
@@ -22,19 +22,22 @@
 			maridiemObj.isAM = !maridiemObj.isAM;
 			maridiemObj.maridiem = "AM";
 		}
+		calculateHours();
 	}
 	
 	// On blur of a time entry, format the time
-	// to human readable time
+	// to human readable time and calculate hours
 	c.formatInput = function(isStartTime) {
 		var value;
 		if(isStartTime) {
 			value = c.data.start_time.split('');
 			c.data.start_time = formatTime(value);
+			validateTimeInput(c.data.start_time, true);
 		}
 		else {
 			value = c.data.end_time.split('');
 			c.data.end_time = formatTime(value);
+			validateTimeInput(c.data.end_time, false);
 		}
 	}
 	
@@ -63,15 +66,55 @@
 			return value.join('');
 	}
 	
+	// Calls the server to validate the time entered by the user is between 
+	// 1-12 hours and 0-60 minutes
+	function validateTimeInput(value, isStartTime) {
+		c.server.get({
+			action: 'validateTimeInput',
+			time_input: value
+		}).then(function(response) {
+			if(!response.data.valid && isStartTime) {
+				c.data.start_time = "9:00";
+				c.data.start_time_maridiem.maridiem = "AM";
+			}
+			else if(!response.data.valid && !isStartTime) {
+				c.data.end_time = "9:00";
+				c.data.end_time_maridiem.maridiem = "AM";
+			}
+			
+			calculateHours();
+		});
+	}
+	
+	// Calls the server to calculate the difference between the start and end fields and 
+	// set the hours field based on the difference
+	function calculateHours() {
+		c.server.get({
+			action: 'calculateHours',
+			start_time: c.data.start_time,
+			start_time_maridiem: c.data.start_time_maridiem,
+			end_time: c.data.end_time,
+			end_time_maridiem: c.data.end_time_maridiem
+		}).then(function(response) {
+			c.data.hours = response.data.hours;
+		});
+	}
+	
 	// On submit, insert the record into the database and display
 	// either a success or error message
 	c.submitForm = function() {
-		
 		c.server.update().then(function(response) {
 			if(response.status == 'success') {
 				c.message = null; // Hide the error message
 				c.success = response.message;
-						
+				console.log(response);
+				c.data.description = '';
+				c.data.billable = false;
+				c.data.project = c.data.projects[0].sys_id;
+				c.data.start_time = response.new_start_time;
+				c.data.start_time_maridiem.maridiem = response.new_maridiem;
+				c.data.hours = "0:00";
+
 				spUtil.addTrivialMessage(c.success);
 			}
 			else if(response.status == 'error') {
@@ -125,7 +168,8 @@
   color: #7191c9;
   padding: 5px 0px;
   margin-left: 5px;
-  width: 85%;
+  width: 80%;
+  border-style: none;
 }
 
 input::placeholder {
@@ -262,6 +306,36 @@ select::-ms-expand {
   top: 10px;
   color: #49688a;
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 700px) {
+  .time-input-container {
+  	margin-top: 50px;
+  }
+  
+  .maridiem {
+  	margin-right: -20px;
+  }
+  
+  .time-input {
+    margin: 0;
+  	width: 140px;
+  }
+  
+  #to-p {
+  	display: block;
+    padding-top: 20px;
+    margin: 0;
+  }
+  
+  #time-input-top {
+  	margin-left: 65px;
+  }
+  
+  .total-hours-div {
+  	margin: 50px;
+  }
+}
 </css>
         <data_table>sp_instance</data_table>
         <demo_data/>
@@ -313,7 +387,10 @@ select::-ms-expand {
 		data.end_time_maridiem = {
 			maridiem : "AM",
 			isAM : true
-		} 
+		}
+		
+		// initialize hours to zero
+		data.hours = "0:00";
 		
 		// Get the current date and time and initialize the data, start time and end time fields
 		var currentDate = new GlideDateTime();
@@ -333,13 +410,9 @@ select::-ms-expand {
 		}
 	}
 	
-	// initialize hours to zero
-	data.hours = 0;
-	
 	// On submission of the time entry form insert the entry into the
 	// time card entries table 
-	if(input) {
-		
+	if(input && !input.action) {
 		// Insert Time Entry
 		var grTimeEntry = new GlideRecord('x_143729_toggl_time_card_entries');
 		grTimeEntry.initialize();
@@ -347,10 +420,12 @@ select::-ms-expand {
 		grTimeEntry.project = input.project.toString();
 		grTimeEntry.work_week = input.work_week;
 		grTimeEntry.date = getEntryDateValue(input.date.toString());
-		grTimeEntry.start_time = getEntryTimeValue(input.start_time.toString(), true);
-		grTimeEntry.end_time = getEntryTimeValue(input.end_time.toString(), false);
+		var startTime = getEntryTimeValue(input.start_time, input.start_time_maridiem.isAM, true);
+		grTimeEntry.start_time.setDisplayValue(startTime); 
+		var endTime = getEntryTimeValue(input.end_time, input.end_time_maridiem.isAM, false);
+		grTimeEntry.end_time.setDisplayValue(endTime);
 		grTimeEntry.billable = input.billable.toString();
-		grTimeEntry.hours = calculateHours(grTimeEntry.start_time.toString(), grTimeEntry.end_time.toString());
+		grTimeEntry.hours = input.hours.toString();
 		grTimeEntry.description = input.description.toString();
 		var timeEntrySysId = grTimeEntry.insert();
 		
@@ -359,20 +434,20 @@ select::-ms-expand {
 		if(!gs.nil(timeEntrySysId)) {
 			data.status = 'success';
 			data.message = 'Your time card has been submitted successfully';
-			data.hours = grTimeEntry.hours.toString();
+			data.new_start_time = input.end_time;
+			data.new_maridiem = input.end_time_maridiem.maridiem
 			data.entryID = timeEntrySysId;
 		} else {
 			data.status = 'error';
 		}
-		
 	}
 	
 	// Takes the date field string value and returns a GlideDateTime object
 	function getEntryDateValue(dateInput) {
 		var gdtDateEntry = new GlideDateTime();
-		var month = parseInt(dateInput.substring(0, 2));
-		var day = parseInt(dateInput.substring(3));
-		
+		var month = parseInt(dateInput.substring(0, 2), 10);
+		var day = parseInt(dateInput.substring(3), 10);
+
 		gdtDateEntry.setDayOfMonthLocalTime(day);
 		gdtDateEntry.setMonthLocalTime(month);
 		
@@ -381,52 +456,93 @@ select::-ms-expand {
 	
 	// Takes the time input string value and a boolean representing if it's the start or end date and
 	// returns a GlideTime object
-	function getEntryTimeValue(timeInput, isStartTime) {
-		var gdtTimeEntry = new GlideDateTime();
-		gdtTimeEntry.setDisplayValue("2018-01-01 " + timeInput + ':00', 'YYYY-mm-dd hh:mm:ss');	
-		
-		if(isStartTime && !input.start_time_maridiem.isAM) {
-			gdtTimeEntry.addSeconds(43200);
-		}
-		else if(!isStartTime && !input.end_time_maridiem.isAM) {
-			gdtTimeEntry.addSeconds(43200);
-		}
+	function getEntryTimeValue(timeInput, isAM, isStartTime) {
 
-		return gdtTimeEntry.getTime();
+		var gdtTimeEntry = new GlideDateTime();
+		var isNoon;
+		
+		if(isStartTime) {
+			gdtTimeEntry.setValue("2018-01-01 " + timeInput + ':00');	
+			isNoon = timeInput.startsWith('12');
+			
+			if(!isAM && !isNoon) {
+				gdtTimeEntry.addSeconds(43200);
+			}
+		}
+		else {
+			gdtTimeEntry.setValue("2018-01-01 " + timeInput + ':00');
+			isNoon = timeInput.startsWith('12');
+			
+			if(!isAM && !isNoon) {
+				gdtTimeEntry.addSeconds(43200);
+			}
+		}
+		
+		return gdtTimeEntry;
+	}
+	
+	// Validates the time entered by the user is between 1-12 hours and 0-60 minutes 
+	if(input && input.action == 'validateTimeInput') {
+		
+		var inputHours = parseInt(input.time_input.substring(0, 2), 10);
+		var inputMinutes = parseInt(input.time_input.substring(3), 10);		
+		
+		if(inputHours > 12 || inputHours <= 0 || isNaN(inputHours)) {
+			data.valid = false;
+		}
+		else if(inputMinutes > 59 || inputMinutes < 0 || isNaN(inputMinutes)) {
+			data.valid = false;
+		}
+		else {
+			data.valid = true;
+		}
 	}
 	
 	// Calculates the difference between the start and end fields and 
 	// sets the hours field based on the difference
-	function calculateHours(startInput, endInput) {
-	
-		var gtStartTime = new GlideTime();
-		gtStartTime.setDisplayValue(startInput + ":00");
-		var gtEndTime = new GlideTime();
-		gtEndTime.setDisplayValue(endInput + ":00");
+	if(input && input.action == 'calculateHours') {
+
+		var startHours = parseInt(input.start_time.substring(0, 2), 10);
+		var startMinutes = parseInt(input.start_time.substring(3), 10);
+		var endHours = parseInt(input.end_time.substring(0, 2), 10);
+		var endMinutes = parseInt(input.end_time.substring(3), 10);
 		
-		var hours = (gtEndTime.getHourOfDayLocalTime() - gtStartTime.getHourOfDayLocalTime());		
-		var minutes = (gtEndTime.getMinutesLocalTime() - gtStartTime.getMinutesLocalTime());
+		var startIsNoon = input.start_time.startsWith('12');
+		var	endIsNoon = input.end_time.startsWith('12');
+	
+		startMinutes += (startHours * 60);
+		endMinutes += (endHours * 60);
+		
+		if(!input.start_time_maridiem.isAM && !startIsNoon) {
+			startMinutes += 720;
+		}
+		if(!input.end_time_maridiem.isAM && !endIsNoon) {
+			endMinutes += 720;
+		}
+		
+		var hours = Math.abs(parseInt((endMinutes - startMinutes) / 60));
+		var minutes = Math.abs((endMinutes - startMinutes) % 60);
 		
 		if(minutes < 10)
-			return (hours + ":0" + minutes);
+			data.hours = (hours + ":0" + minutes);
 		else
-			return (hours + ":" + minutes);
+			data.hours = (hours + ":" + minutes);
 	}
-
+	
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-03-30 18:20:32</sys_created_on>
         <sys_id>f5011dab4f851300ab7100f18110c7fd</sys_id>
-        <sys_mod_count>530</sys_mod_count>
+        <sys_mod_count>760</sys_mod_count>
         <sys_name>Toggl Time Entry Form</sys_name>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
         <sys_policy/>
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
         <sys_update_name>sp_widget_f5011dab4f851300ab7100f18110c7fd</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-04-10 17:10:39</sys_updated_on>
+        <sys_updated_on>2018-04-18 17:54:41</sys_updated_on>
         <template><![CDATA[<div class="body">
 	<div class="heading">
     <p class="header">TIME TRACKER</p>
@@ -452,14 +568,14 @@ select::-ms-expand {
 
       <div class="time-input-container">
 
-        <div class="time-input-div">
-          <p class="time">
+        <div class="time-input-div" id="time-input-top">
+          <div class="time">
             <span class="light-purple maridiem" id="start-time"
                   ng-click="c.toggleMeritime(c.data.start_time_maridiem)">{{c.data.start_time_maridiem.maridiem}}</span>
             <input type="text" class="time-input" maxlength="5" 
                    ng-model="c.data.start_time"
                    ng-blur="c.formatInput(true)"/>
-          </p>
+          </div>
         </div>
 
         <toggl-date-picker date="c.data.date"></toggl-date-picker>
@@ -467,13 +583,13 @@ select::-ms-expand {
         <p id="to-p">TO</p>
 
         <div class="time-input-div">
-          <p class="time">
+          <div class="time">
             <span class="light-purple maridiem" id="end-time"
                   ng-click="c.toggleMeritime(c.data.end_time_maridiem)">{{c.data.end_time_maridiem.maridiem}}</span>
             <input type="text" class="time-input" maxlength="5" 
                    ng-model="c.data.end_time"
                    ng-blur="c.formatInput(false)"/>
-          </p>
+          </div>
         </div>
         
       </div>

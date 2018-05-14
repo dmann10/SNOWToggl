@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_angular_provider">
+    <sp_angular_provider action="INSERT_OR_UPDATE">
+        <name>onCarouselChange</name>
+        <script><![CDATA[function($parse) {
+	return {
+	
+		link: function (scope, element, attrs, carouselCtrl) {
+			var fn = $parse(attrs.onCarouselChange);
+			var origSelect = carouselCtrl.select;
+			carouselCtrl.select = function (nextSlide, direction) {
+				if (nextSlide !== this.currentSlide) {
+					fn(scope, {
+						nextSlide: nextSlide,
+						direction: direction
+					});
+				}
+				return origSelect.apply(this, arguments);
+			};
+		}
+	};
+}]]></script>
+        <sys_class_name>sp_angular_provider</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-04-16 13:33:36</sys_created_on>
+        <sys_id>a00277384f211300ab7100f18110c7b2</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>onCarouselChange</sys_name>
+        <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
+        <sys_update_name>sp_angular_provider_a00277384f211300ab7100f18110c7b2</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-04-16 13:38:47</sys_updated_on>
+        <type>directive</type>
+    </sp_angular_provider>
+</record_update>

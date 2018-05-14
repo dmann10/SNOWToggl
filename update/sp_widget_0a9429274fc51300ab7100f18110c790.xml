@@ -2,12 +2,21 @@
 <record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[function(spUtil, $scope) {  
+        <client_script><![CDATA[function(spUtil, $scope, $rootScope) {  
 	/* widget controller */  
 	var c = this;
-	
+
 	$rootScope.$on('insertEntry', function(event, data) {
 		c.server.refresh();
+	});
+	
+	$rootScope.$on('changeTimeCard', function(event, data) {
+		c.server.get({
+			action: 'changeTimeCard',
+			id: data
+		}).then(function(response) {
+			c.data.timeEntries = response.data.timeEntries;
+		})
 	});
 	
 	spUtil.recordWatch($scope,'x_143729_toggl_time_card_entries','userDYNAMIC90d1921e5f510100a9ad2572f2b477fe',
@@ -21,7 +30,6 @@
 	max-height: 80vh;
   min-height: 80vh;
   overflow: auto;
-  margin: 0 auto;
 }
 
 .empty-entries-list {
@@ -56,10 +64,6 @@
   padding: 25px 15px 15px 15px;
 }
 
-.day-entry {
-	margin-bottom: 10px;
-}
-
 .entry-description-div {
   display: inline-block;
   width: 75%;
@@ -90,20 +94,76 @@
 
 .entry-hours-div {
   display: inline-block;
-  float: right;
-  margin-top: 10px;
-}
-
-i {
-	position: relative;
-  bottom: 12px;
 }
 
 .entry-hours-div &gt; p {
   font-size: 20px;
   font-weight: bold;
-  margin: 0;
+  margin-left: 30px;
 }
+
+/* Mobile Responsive Design */
+@media (max-width: 700px) {  
+  .empty-entries-list {
+  	padding-top: 10vh;
+  }
+  
+  .day-entry {
+    margin-bottom: 10px;
+  }
+  
+  .entry-description-div {
+  	width: 56%;
+  	max-width: 56%;
+  }
+  
+  .entry-project {
+    display: block;
+    margin: 0;
+  }
+  
+  .entry-hours-div {
+  	float: right;
+    margin-top: 10px;
+  }
+
+  .entry-hours-div &gt; p {
+    font-size: 18px;
+    margin-left: 25px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .main {
+    min-height: 10vh;
+    max-height: none;
+    overflow: initial;
+    margin-bottom: 20px;
+  }
+  
+  i {
+  	top: 0px;
+  }
+  
+  .billableHours {
+    position: relative;
+    bottom: 21px;
+  }
+}
+
+@media (min-width: 1001px) {
+	.entry-hours-div &gt; p {
+    position: relative;
+    bottom: 8px;
+    //margin-left: 30px;
+  }
+  
+  i {
+    position: relative;
+    top: 15px;
+  }
+}
+
 </css>
         <data_table>sp_instance</data_table>
         <demo_data/>
@@ -120,35 +180,50 @@ i {
         <roles/>
         <script><![CDATA[(function() {
   
-	// Get the users current Time Card
-	var gr_timeCard = new GlideRecord('x_143729_toggl_time_cards');
-	gr_timeCard.addQuery('user', gs.getUserID());
-	gr_timeCard.orderByDesc('work_week');
-	gr_timeCard.query();
-	gr_timeCard.next();
-	
-	// Get all of this users time entries for the week 
-	var gr_timeEntry = new GlideRecord('x_143729_toggl_time_card_entries');
-  gr_timeEntry.addQuery('user', gs.getUserID());
-	gr_timeEntry.addQuery('work_week', gr_timeCard.sys_id);
-	gr_timeEntry.orderByDesc('date');
-	gr_timeEntry.query();
-	
 	data.timeEntries = [];
+	var gr_timeEntry = new GlideRecord('x_143729_toggl_time_card_entries');
+		
+	// On selection of a new work week display that week's entries else,
+	// fetch the current week's time card
+	if(input && input.action === 'changeTimeCard') {
+		gr_timeEntry.addQuery('user', gs.getUserID());
+		gr_timeEntry.addQuery('work_week', input.id);
+		gr_timeEntry.orderByDesc('date');
+		gr_timeEntry.query();
+		
+		buildEntriesByWeek(gr_timeEntry);
+	}
+	else {
+		// Get the users current Time Card
+		var gr_timeCard = new GlideRecord('x_143729_toggl_time_cards');
+		gr_timeCard.addQuery('user', gs.getUserID());
+		gr_timeCard.orderByDesc('work_week');
+		gr_timeCard.query();
+		gr_timeCard.next();
+
+		// Get all of this users time entries for the week 
+		gr_timeEntry.addQuery('user', gs.getUserID());
+		gr_timeEntry.addQuery('work_week', gr_timeCard.sys_id);
+		gr_timeEntry.orderByDesc('date');
+		gr_timeEntry.query();
+		
+		buildEntriesByWeek(gr_timeEntry);
+	}
 	
 	// For each day of the week with time entries, build a list of entries for that day
-	var currentDate = '';
-	while(gr_timeEntry.next()) {
-		if(currentDate != gr_timeEntry.date) {
-			currentDate = gr_timeEntry.date.toString();
-			data.timeEntries.push(buildEntriesByDay(gr_timeEntry));
+	function buildEntriesByWeek(gr_timeEntry) {
+		var currentDate = '';
+		while(gr_timeEntry.next()) {
+			if(currentDate != gr_timeEntry.date) {
+				currentDate = gr_timeEntry.date.toString();
+				data.timeEntries.push(buildEntriesByDay(gr_timeEntry));
+			}
 		}
 	}
 	
 	// Accepts a timeEntry glide record as a parameter and builds time entries for that objects date
 	// Returns an object containing a day of the week and an array of timeEntry objects
 	function buildEntriesByDay(timeEntry) {
-		
 		var dayArray = ["", "Monday", "Tuesday", "Wednesday",
 							 "Thursday", "Friday", "Saturday", "Sunday"];
 		
@@ -178,18 +253,20 @@ i {
 		gr_entry.query();
 		
 		// For each glide record build an entry object and push it into the timeEntryObj.entry array
+		var entryObj = {};
 		while(gr_entry.next()) {
-			var entryObj = {};
+			entryObj = {};
 			$sp.getRecordValues(entryObj, gr_entry, 
-				'date,billable,hours,description');
+				'date,billable,hours');
 			entryObj.project = gr_entry.project.getDisplayValue();
+			entryObj.description = gr_entry.description.slice(0, 50);
 			
 			var gdt_startTime = new GlideDateTime();
-			gdt_startTime.setValue(gr_entry.start_time);
+			gdt_startTime.setValue(gr_entry.start_time.toString());
 			entryObj.start_time = gdt_startTime.getLocalTime().getByFormat('hh:mma');
 			
 			var gdt_endTime = new GlideDateTime();
-			gdt_endTime.setValue(gr_entry.end_time);
+			gdt_endTime.setValue(gr_entry.end_time.toString());
 			entryObj.end_time = gdt_endTime.getLocalTime().getByFormat('hh:mma');
 			
 			timeEntryObj.entry.push(entryObj);
@@ -198,21 +275,20 @@ i {
 		return timeEntryObj;
 	}
 	
-})();
-]]></script>
+})();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-03-30 19:46:02</sys_created_on>
         <sys_id>0a9429274fc51300ab7100f18110c790</sys_id>
-        <sys_mod_count>242</sys_mod_count>
+        <sys_mod_count>390</sys_mod_count>
         <sys_name>Toggl Time Entry List</sys_name>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
         <sys_policy/>
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
         <sys_update_name>sp_widget_0a9429274fc51300ab7100f18110c790</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-04-10 20:06:26</sys_updated_on>
+        <sys_updated_on>2018-04-18 18:48:40</sys_updated_on>
         <template><![CDATA[<div class="main"> 
   
   <div class="empty-entries-list" ng-show="data.timeEntries.length == 0">
@@ -230,9 +306,9 @@ i {
           <p class="entry-time">{{entry.start_time}} - {{entry.end_time}}</p>
           <p class="entry-project">{{entry.project}}</p>
         </div>
-        <i ng-show="{{entry.billable}}" class="fa fa-dollar fa-lg"></i>
        	<div class="entry-hours-div">
-          <p>{{entry.hours}} hrs</p>
+          <i ng-show="{{entry.billable}}" class="fa fa-dollar fa-lg billableHours"></i>
+          <p ng-class="{ 'billableHours' : {{entry.billable}} }">{{entry.hours}} hrs</p>
         </div>
       </div>
     </div>

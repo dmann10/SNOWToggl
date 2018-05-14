@@ -16,15 +16,23 @@ TimeEntries.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 	calculateHours: function() {
 		var startInput = this.getParameter('sysparm_startTime');
 		var endInput = this.getParameter('sysparm_endTime');
-		
-		var startTime = new GlideTime();
-		startTime.setDisplayValue(startInput);
-		var endTime = new GlideTime();
-		endTime.setDisplayValue(endInput);
-		
-		var hours = (endTime.getHourOfDayLocalTime() - startTime.getHourOfDayLocalTime());		
-		var minutes = (endTime.getMinutesLocalTime() - startTime.getMinutesLocalTime());
-		
+
+		var gtStartTime = new GlideTime();
+		gtStartTime.setDisplayValue(startInput);
+		var gtEndTime = new GlideTime();
+		gtEndTime.setDisplayValue(endInput);
+
+		var startDayUTC = gtStartTime.getDayOfMonthLocalTime() * 24;
+		var endDayUTC = gtEndTime.getDayOfMonthLocalTime() * 24;
+
+		var startMinutes = (startDayUTC + gtStartTime.getHourOfDayLocalTime()) * 60;
+		startMinutes += gtStartTime.getMinutesLocalTime();
+		var endMinutes = (endDayUTC + gtEndTime.getHourOfDayLocalTime()) * 60;
+		endMinutes += gtEndTime.getMinutesLocalTime();
+
+		var hours = parseInt((endMinutes - startMinutes) / 60);
+		var minutes = Math.abs((endMinutes - startMinutes) % 60);
+
 		if(minutes < 10)
 			return (hours + ":0" + minutes);
 		else
@@ -40,7 +48,6 @@ TimeEntries.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 			return "false";
 		else 
 			return "true";
-		
 			
 	},
 
@@ -50,13 +57,13 @@ TimeEntries.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-03-21 20:47:58</sys_created_on>
         <sys_id>243cdfe04f051300ab7100f18110c72f</sys_id>
-        <sys_mod_count>66</sys_mod_count>
+        <sys_mod_count>71</sys_mod_count>
         <sys_name>TimeEntries</sys_name>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
         <sys_update_name>sys_script_include_243cdfe04f051300ab7100f18110c72f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-04-03 22:42:17</sys_updated_on>
+        <sys_updated_on>2018-04-13 14:37:20</sys_updated_on>
     </sys_script_include>
 </record_update>

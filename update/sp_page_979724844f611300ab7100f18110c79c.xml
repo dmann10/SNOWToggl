@@ -20,55 +20,36 @@ header {
 }
 
 .sideBar {
-  background-color: #6e97c8; 
+  background-color: #6e97c8;
   padding: 50px;
 }
 
 @media (min-width: 800px) {
   .sideBar { 
-   height: 90vh;
-  }
-  
-  .body-column-left {
-    padding: 40px 25px 0px 50px;
-    margin-bottom: 30px;
-  }
-
-  .body-column-right {
-    padding: 40px 50px 0px 25px;
-    margin-bottom: 30px;
+    min-height: 95vh;
   }
 }
-
-@media (max-width: 760px) {
-  .body-column-left {
-  	padding-top: 40px;
-  }
-  
-	.body-column-right {
-  	padding-top: 40px;
-  }
-}</css>
+</css>
         <draft>false</draft>
         <dynamic_title_structure/>
-        <id>toggl_index</id>
+        <id>toggl_my_time_card</id>
         <internal>false</internal>
         <public>false</public>
         <roles/>
         <short_description/>
         <sys_class_name>sp_page</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2018-03-26 20:17:39</sys_created_on>
-        <sys_id>9e75cd9a4fc11300ab7100f18110c727</sys_id>
-        <sys_mod_count>67</sys_mod_count>
-        <sys_name>toggl_index</sys_name>
+        <sys_created_on>2018-04-13 14:52:15</sys_created_on>
+        <sys_id>979724844f611300ab7100f18110c79c</sys_id>
+        <sys_mod_count>37</sys_mod_count>
+        <sys_name>toggl_my_time_card</sys_name>
         <sys_package display_value="Toggl" source="x_143729_toggl">1ada5e994f370300ab7100f18110c7ae</sys_package>
         <sys_policy/>
         <sys_scope display_value="Toggl">1ada5e994f370300ab7100f18110c7ae</sys_scope>
-        <sys_update_name>sp_page_9e75cd9a4fc11300ab7100f18110c727</sys_update_name>
+        <sys_update_name>sp_page_979724844f611300ab7100f18110c79c</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-04-17 20:59:10</sys_updated_on>
-        <title>Toggl Index</title>
+        <sys_updated_on>2018-04-17 20:59:32</sys_updated_on>
+        <title>Toggl My Time Card</title>
     </sp_page>
-    <sys_translated_text action="delete_multiple" query="documentkey=9e75cd9a4fc11300ab7100f18110c727"/>
+    <sys_translated_text action="delete_multiple" query="documentkey=979724844f611300ab7100f18110c79c"/>
 </record_update>
